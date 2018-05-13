@@ -21,7 +21,7 @@ SDL_Color textColor = { 0, 0, 0 };
 
 int main(int argc, char* argv[])
 {
-	if (init() == false)
+	/*if (init() == false)
 	{
 		return 1;
 	}
@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-	//menu();
-	clean_up();
+	menu();
+	clean_up();*/
 	return 0;
 }

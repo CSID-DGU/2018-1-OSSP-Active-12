@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-	menu();
+	//menu();
 	clean_up();
 	return 0;
 }

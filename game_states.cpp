@@ -34,7 +34,7 @@ int select_mode()
 		{
 			message = TTF_RenderText_Solid(font, "Press space to start, esc key to quit", textColor);
 			apply_surface(0, 0, background, screen);
-			title_message = TTF_RenderText_Solid(font2, "Awesome Dodge", textColor);
+			title_message = TTF_RenderText_Solid(font2, "Active Dodge", textColor);
 			apply_surface((640 - title_message->w) / 2, 80, title_message, screen);
 			apply_surface((640 - message->w) / 2, 480 / 2 - message->h, message, screen);
 			message = TTF_RenderText_Solid(font, "Single         Multi", textColor);
@@ -787,8 +787,8 @@ void game_over(int level, int score, int state)
 	{
 		if (SDL_PollEvent(&event))
 		{
-			if (event.type == SDL_QUIT || 
-				(event.type == SDL_KEYDOWN && 
+			if (event.type == SDL_QUIT ||
+				(event.type == SDL_KEYDOWN &&
 				(event.key.keysym.sym == SDLK_SPACE || event.key.keysym.sym == SDLK_ESCAPE)))
 			{
 				break;

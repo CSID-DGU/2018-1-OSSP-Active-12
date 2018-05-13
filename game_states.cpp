@@ -1,5 +1,5 @@
 #include "game_states.h"
-
+//test
 void menu()
 {
 	int mode = INITIAL_MODE;

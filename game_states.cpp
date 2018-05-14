@@ -36,7 +36,7 @@ int select_mode()
 		{
 			message = TTF_RenderText_Solid(font, "Press space to start, esc key to quit", textColor);
 			apply_surface(0, 0, background, screen);
-			title_message = TTF_RenderText_Solid(font2, "Awesome Dodge", textColor);
+			title_message = TTF_RenderText_Solid(font2, "Active Dodge", textColor);
 			apply_surface((640 - title_message->w) / 2, 80, title_message, screen);
 			apply_surface((640 - message->w) / 2, 480 / 2 - message->h, message, screen);
 			message = TTF_RenderText_Solid(font, "Single         Multi", textColor);
@@ -93,22 +93,25 @@ int select_level()
 	{
 		if (SDL_PollEvent(&event))
 		{
+
 			message = TTF_RenderText_Solid(font, "Press space to start, esc key to quit", textColor);
 			apply_surface(0, 0, background, screen);
-			title_message = TTF_RenderText_Solid(font2, "Awesome Dodge", textColor);
+			title_message = TTF_RenderText_Solid(font2, "Active Dodge", textColor);
 			apply_surface((640 - title_message->w) / 2, 100, title_message, screen);
 			apply_surface((640 - message->w) / 2, 480 / 2 - message->h, message, screen);
-			message = TTF_RenderText_Solid(font, "level 1         level 2        level 3", textColor);
-			apply_surface((640 - message->w) / 2, 480 / 2 + message->h, message, screen);
-			message2 = TTF_RenderText_Solid(font, "level 1         ", textColor);
-			int tmp = message2->w;
-			message2 = TTF_RenderText_Solid(font, ">", textColor);
-			apply_surface((640 - message->w) / 2 - 8 + selector * tmp, 480 / 2 + message->h, message2, screen);
+			//message = TTF_RenderText_Solid(font, "level 1         level 2        level 3", textColor);
+			//apply_surface((640 - message->w) / 2, 480 / 2 + message->h, message, screen);
+			//message2 = TTF_RenderText_Solid(font, "level 1         ", textColor);
+			//int tmp = message2->w;
+			//message2 = TTF_RenderText_Solid(font, ">", textColor);
+			//apply_surface((640 - message->w) / 2 - 8 + selector * tmp, 480 / 2 + message->h, message2, screen);
 			SDL_Flip(screen);
+
 			if (event.type == SDL_KEYDOWN)
 			{
 				switch (event.key.keysym.sym)
 				{
+				/*
 				case SDLK_RIGHT:
 				{
 					if (selector >= 2) break;
@@ -121,6 +124,7 @@ int select_level()
 					selector--;
 					break;
 				}
+				*/
 				case SDLK_SPACE:
 				{
 					message = NULL;
@@ -789,8 +793,8 @@ void game_over(int level, int score, int state)
 	{
 		if (SDL_PollEvent(&event))
 		{
-			if (event.type == SDL_QUIT || 
-				(event.type == SDL_KEYDOWN && 
+			if (event.type == SDL_QUIT ||
+				(event.type == SDL_KEYDOWN &&
 				(event.key.keysym.sym == SDLK_SPACE || event.key.keysym.sym == SDLK_ESCAPE)))
 			{
 				break;

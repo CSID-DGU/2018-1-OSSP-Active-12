@@ -15,7 +15,7 @@ void menu()
 		case SINGLE_MODE:
 			init();
 			main_game(1, SINGLE_MODE);
-			//mode = select_level();
+			mode = select_level();
 			break;
 		case MULTI_MODE:
 			mode = socketing();

@@ -1,5 +1,6 @@
 #include "game_states.h"
 #include <vector>
+#include <algorithm>
 #include <fstream>
 using namespace std;
 
@@ -23,6 +24,10 @@ public:
     return score;
   }
 };
+
+bool compare(Rank a, Rank b){
+  return a.getScore() > b.getScore();
+}
 
 vector<Rank> rankingList;
 
@@ -50,11 +55,235 @@ void menu()
 	}
 }
 
+string write_name(string name){
+  bool quit = false;
+	int mode = 0;
+  name="";
+	while (quit == false)
+	{
+		if (SDL_PollEvent(&event))
+		{
+      message = TTF_RenderText_Solid(font, "Write your name and press space", textColor);
+			apply_surface(0, 0, background, screen);
+			SDL_Flip(screen);
+			title_message = TTF_RenderText_Solid(font2, "Awesome Dodge", textColor);
+			apply_surface((640 - title_message->w) / 2, 80, title_message, screen);
+			apply_surface((640 - message->w) / 2, 480 / 2 - message->h, message, screen);
+			SDL_Flip(screen);
+			if (event.type == SDL_KEYDOWN)
+			{
+				switch (event.key.keysym.sym)
+				{
+          case SDLK_0:
+          {
+            name+="0";
+            break;
+          }
+          case SDLK_1:
+          {
+            name+="1";
+            break;
+          }
+          case SDLK_2:
+          {
+            name+="2";
+            break;
+          }
+          case SDLK_3:
+          {
+            name+="3";
+            break;
+          }
+          case SDLK_4:
+          {
+            name+="4";
+            break;
+          }
+          case SDLK_5:
+          {
+            name+="5";
+            break;
+          }
+          case SDLK_6:
+          {
+            name+="6";
+            break;
+          }
+          case SDLK_7:
+          {
+            name+="7";
+            break;
+          }
+          case SDLK_8:
+          {
+            name+="8";
+            break;
+          }
+          case SDLK_9:
+          {
+            name+="9";
+            break;
+          }
+          case SDLK_a:
+          {
+            name+="a";
+            break;
+          }
+          case SDLK_b:
+          {
+            name+="b";
+            break;
+          }
+          case SDLK_c:
+          {
+            name+="c";
+            break;
+          }
+          case SDLK_d:
+          {
+            name+="d";
+            break;
+          }
+          case SDLK_e:
+          {
+            name+="e";
+            break;
+          }
+          case SDLK_f:
+          {
+            name+="f";
+            break;
+          }
+          case SDLK_g:
+          {
+            name+="g";
+            break;
+          }
+          case SDLK_h:
+          {
+            name+="h";
+            break;
+          }
+          case SDLK_i:
+          {
+            name+="i";
+            break;
+          }case SDLK_j:
+          {
+            name+="j";
+            break;
+          }
+          case SDLK_k:
+          {
+            name+="k";
+            break;
+          }
+          case SDLK_l:
+          {
+            name+="l";
+            break;
+          }
+          case SDLK_m:
+          {
+            name+="m";
+            break;
+          }
+          case SDLK_n:
+          {
+            name+="n";
+            break;
+          }
+          case SDLK_o:
+          {
+            name+="o";
+            break;
+          }
+          case SDLK_p:
+          {
+            name+="p";
+            break;
+          }
+          case SDLK_q:
+          {
+            name+="q";
+            break;
+          }
+          case SDLK_r:
+          {
+            name+="r";
+            break;
+          }
+          case SDLK_s:
+          {
+            name+="s";
+            break;
+          }
+          case SDLK_t:
+          {
+            name+="t";
+            break;
+          }
+          case SDLK_u:
+          {
+            name+="u";
+            break;
+          }
+          case SDLK_v:
+          {
+            name+="v";
+            break;
+          }
+          case SDLK_w:
+          {
+            name+="w";
+            break;
+          }
+          case SDLK_x:
+          {
+            name+="x";
+            break;
+          }
+          case SDLK_y:
+          {
+            name+="y";
+            break;
+          }
+          case SDLK_z:
+          {
+            name+="z";
+            break;
+          }
+				case SDLK_SPACE:
+				{
+					message = NULL;
+					return name;
+					break;
+				}
+				case SDLK_ESCAPE://esc 키가 눌리면 종료
+					return name;
+					break;
+				default:
+					break;
+				}
+			}
+			else if (event.type == SDL_QUIT)
+			{
+				return name;
+				quit = true;
+			}
+		}
+	}
+  return name;
+}
+
 void ranking(int level, int score, int state){
-	string name="guest";
-
+string t_name;
+string name;
+name = write_name(t_name);
 	//플레이어 닉네임 넣는 창 추후에 구현
-
+if (name==""){
+  name="guest";
+}
 	Rank temp(name, level, score);
   rankingList.push_back(temp);
 	string p_name;
@@ -77,6 +306,7 @@ void ranking(int level, int score, int state){
 }
 	rank_in.close();
 	num++;
+  sort(rankingList.begin(), rankingList.end(), compare);
 	//랭킹 출력하는 화면 만들기
 
 	std::ofstream rank_save;

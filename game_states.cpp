@@ -1,4 +1,30 @@
 #include "game_states.h"
+#include <vector>
+#include <fstream>
+using namespace std;
+
+class Rank{
+  string user_name;
+  int level;
+  int score;
+public:
+  Rank(string user_name, int level, int score){
+    this->user_name=user_name;
+    this->level=level;
+    this->score=score;
+  }
+  string getName(){
+    return user_name;
+  }
+  int getLevel(){
+    return level;
+  }
+  int getScore(){
+    return score;
+  }
+};
+
+vector<Rank> rankingList;
 
 void menu()
 {
@@ -22,6 +48,48 @@ void menu()
 			break;
 		}
 	}
+}
+
+void ranking(int level, int score, int state){
+	string name="guest";
+
+	//플레이어 닉네임 넣는 창 추후에 구현
+
+	Rank temp(name, level, score);
+  rankingList.push_back(temp);
+	string p_name;
+	int p_level;
+	int p_score;
+	int num;//몇 명의 정보를 불러와야 하는지
+
+	std::ifstream rank_in;
+	rank_in.open("rank.txt");
+	rank_in>>num;//몇 명인지 불러온다
+
+  if(num!=0){
+	for(int i=0; i<num; i++){//저장되어 있는 수 동안
+		rank_in>>p_name;
+		rank_in>>p_level;
+		rank_in>>p_score;
+		Rank r(p_name, p_level, p_score);
+		rankingList.push_back(r);
+	}
+}
+	rank_in.close();
+	num++;
+	//랭킹 출력하는 화면 만들기
+
+	std::ofstream rank_save;
+	rank_save.open("rank.txt");
+	rank_save<<num<<endl;
+	for(int i=0;i<num;i++){
+		rank_save<<rankingList[i].getName()<<endl;
+		rank_save<<rankingList[i].getLevel()<<endl;
+		rank_save<<rankingList[i].getScore()<<endl;
+	}
+	rank_save.close();
+
+	game_over(level, score, SINGLE_MODE);
 }
 
 int select_mode()
@@ -617,7 +685,8 @@ void main_game(int selector, int mode)//난이도 선택 변수
 
 					if(mode == SINGLE_MODE)
 					{
-						game_over(level, score, SINGLE_MODE);
+						ranking(level, score, SINGLE_MODE);
+						//game_over(level, score, SINGLE_MODE);
 					}
 					else
 					{
@@ -787,8 +856,8 @@ void game_over(int level, int score, int state)
 	{
 		if (SDL_PollEvent(&event))
 		{
-			if (event.type == SDL_QUIT || 
-				(event.type == SDL_KEYDOWN && 
+			if (event.type == SDL_QUIT ||
+				(event.type == SDL_KEYDOWN &&
 				(event.key.keysym.sym == SDLK_SPACE || event.key.keysym.sym == SDLK_ESCAPE)))
 			{
 				break;

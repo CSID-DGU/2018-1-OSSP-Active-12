@@ -32,6 +32,7 @@ extern SDL_Surface* ball;
 extern SDL_Surface* heart;
 extern SDL_Surface* enemy_heart;
 
+const SDL_Color white = {255, 255, 255};
 extern SDL_Event event;
 extern TTF_Font *font;
 extern TTF_Font *font2;

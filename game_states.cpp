@@ -34,16 +34,16 @@ int select_mode()
 	{
 		if (SDL_PollEvent(&event))
 		{
-			message = TTF_RenderText_Solid(font, "Press space to start, esc key to quit", textColor);
+			message = TTF_RenderText_Solid(font, "Press space to start, esc key to quit", white);
 			apply_surface(0, 0, background, screen);
-			title_message = TTF_RenderText_Solid(font2, "Active Dodge", textColor);
+			title_message = TTF_RenderText_Solid(font2, "Active Dodge", white);
 			apply_surface((640 - title_message->w) / 2, 80, title_message, screen);
 			apply_surface((640 - message->w) / 2, 480 / 2 - message->h, message, screen);
-			message = TTF_RenderText_Solid(font, "Single         Multi", textColor);
+			message = TTF_RenderText_Solid(font, "Single         Multi", white);
 			apply_surface((640 - message->w) / 2, 480 / 2 + message->h, message, screen);
-			message2 = TTF_RenderText_Solid(font, "Single         ", textColor);
+			message2 = TTF_RenderText_Solid(font, "Single         ", white);
 			int tmp = message2->w;
-			message2 = TTF_RenderText_Solid(font, ">", textColor);
+			message2 = TTF_RenderText_Solid(font, ">", white);
 			apply_surface((640 - message->w) / 2 - 8 + mode * tmp, 480 / 2 + message->h, message2, screen);
 			SDL_Flip(screen);
 			if (event.type == SDL_KEYDOWN)
@@ -94,9 +94,9 @@ int select_level()
 		if (SDL_PollEvent(&event))
 		{
 
-			message = TTF_RenderText_Solid(font, "Press space to start, esc key to quit", textColor);
+			message = TTF_RenderText_Solid(font, "Press space to start, esc key to quit", white);
 			apply_surface(0, 0, background, screen);
-			title_message = TTF_RenderText_Solid(font2, "Active Dodge", textColor);
+			title_message = TTF_RenderText_Solid(font2, "Active Dodge", white);
 			apply_surface((640 - title_message->w) / 2, 100, title_message, screen);
 			apply_surface((640 - message->w) / 2, 480 / 2 - message->h, message, screen);
 			//message = TTF_RenderText_Solid(font, "level 1         level 2        level 3", textColor);
@@ -388,14 +388,13 @@ bool init()
 		return false;
 	}
 	srand(time(NULL));
-	SDL_WM_SetCaption("Awesome", NULL);
+	SDL_WM_SetCaption("Active", NULL);
 
 	return true;
 }
 
 bool load_files()
 {
-
 	background = load_image("assets/background.png");
 	font = TTF_OpenFont("assets/BMDOHYEON_ttf.ttf", 24);
 	font2 = TTF_OpenFont("assets/RaphLanokFuture.otf", 48);
@@ -547,7 +546,9 @@ void main_game(int selector, int mode)//난이도 선택 변수
 
 		apply_surface(0, 0, background, screen);
 		if (life == 3) {
-			apply_surface(500, 20, heart, screen); apply_surface(540, 20, heart, screen); apply_surface(580, 20, heart, screen);
+			apply_surface(500, 20, heart, screen);
+			apply_surface(540, 20, heart, screen);
+			apply_surface(580, 20, heart, screen);
 		}
 		// heart decrease as life goes down
 		else if (life == 2) {
@@ -676,9 +677,9 @@ void main_game(int selector, int mode)//난이도 선택 변수
 		std::stringstream caption, caption2;
 		caption << /* "FPS: " << (int)(frames*1000.0/(SDL_GetTicks() - fps_calc_timer+1)) << */"Score: " << score
 			<< "       Level: " << level;//level 추가로 표시
-		message = TTF_RenderText_Solid(font, caption.str().c_str(), textColor);
+		message = TTF_RenderText_Solid(font, caption.str().c_str(), white);
 		caption2 << "Life: " << life;
-		message2 = TTF_RenderText_Solid(font, caption2.str().c_str(), textColor);
+		message2 = TTF_RenderText_Solid(font, caption2.str().c_str(), white);
 		if (SDL_GetTicks() - fps_calc_timer > 5000)
 		{
 			frames = 1;
@@ -772,27 +773,27 @@ void game_over(int level, int score, int state)
 		//SINGLE_MODE
 		case SINGLE_MODE:
 		apply_surface(0, 0, background, screen);
-		message = TTF_RenderText_Solid(font, "Game over", textColor);
+		message = TTF_RenderText_Solid(font, "Game over", white);
 		apply_surface((SCREEN_WIDTH - message->w) / 2, SCREEN_HEIGHT / 2 - message->h, message, screen);
 		caption << "Level : " << level;
-		message = TTF_RenderText_Solid(font, caption.str().c_str(), textColor);
+		message = TTF_RenderText_Solid(font, caption.str().c_str(), white);
 		apply_surface((SCREEN_WIDTH - message->w) / 2, SCREEN_HEIGHT / 2 + message->h, message, screen);
 		caption2 << "Score is : " << score;
-		message = TTF_RenderText_Solid(font, caption2.str().c_str(), textColor);
+		message = TTF_RenderText_Solid(font, caption2.str().c_str(), white);
 		apply_surface((SCREEN_WIDTH - message->w) / 2, SCREEN_HEIGHT / 2 + message->h + 50, message, screen);
 		SDL_Flip(screen);
 		break;
 		// 1 == WIN_CASE
 		case WINNER:
 		apply_surface(0, 0, background, screen);
-		message = TTF_RenderText_Solid(font, "! ! ! YOU WIN ! ! !", textColor);
+		message = TTF_RenderText_Solid(font, "! ! ! YOU WIN ! ! !", white);
 		apply_surface((SCREEN_WIDTH - message->w) / 2, SCREEN_HEIGHT / 2 - message->h, message, screen);
 		SDL_Flip(screen);
 		break;
 		// 2 == LOSE_CASE
 		case LOSER:
 		apply_surface(0, 0, background, screen);
-		message = TTF_RenderText_Solid(font, "( T . T ) YOU LOSE ( T . T )", textColor);
+		message = TTF_RenderText_Solid(font, "( T . T ) YOU LOSE ( T . T )", white);
 		apply_surface((SCREEN_WIDTH - message->w) / 2, SCREEN_HEIGHT / 2 - message->h, message, screen);
 		SDL_Flip(screen);
 		break;

@@ -1,4 +1,6 @@
 #include "game_states.h"
+#include <time.h>
+using namespace std;
 
 void menu()
 {
@@ -455,6 +457,12 @@ void main_game(int selector, int mode)//난이도 선택 변수
 	int fps_calc_timer = SDL_GetTicks();
 	int score = 0;
 
+	//time check, score
+	clock_t tstart = clock();
+	clock_t tend;
+	long ttemp;
+	long sec=0; //seconds
+
 	int randomball[MAX_BALLS]; // 떨어지는 볼의 속도를 랜덤하게 조정하기 위해 선언한 배열
 
 	if (mode == SINGLE_MODE) srand((unsigned int)time(NULL)); //in Single Mode set random ball
@@ -492,7 +500,6 @@ void main_game(int selector, int mode)//난이도 선택 변수
 					new_ball.y = -(5 + rand() % 350);
 					new_ball.w = new_ball.h = BALL_SIZE;
 					balls[i] = new_ball;
-
 				}
 			}
 			current_balls = MAX_BALLS;
@@ -558,11 +565,16 @@ void main_game(int selector, int mode)//난이도 선택 변수
 			{
 				current_balls--;
 				score++;
-				if (score > LEVEL_UP_COUNT * (level - selector))
-				{
-					level++;//score의 상태에 따라 레벨 증가
-				}
+
+				//if (score > LEVEL_UP_COUNT * (level - selector))
+				//{
+				//	level++;//score의 상태에 따라 레벨 증가
+				//
+
+				//15초마다 레벨 증가
+				//tend = clock();
 			}
+
 			SDL_Rect player_rect;
 			SDL_Rect player_rect2;
 			player_rect.x = player_position - PLAYER_WIDTH / 2;
@@ -635,6 +647,7 @@ void main_game(int selector, int mode)//난이도 선택 변수
 				}
 			}
 		}
+
 		if (Die_Count == 0 || Die_Count % 2 == 0)
 		{
 			if (Die_Count >= 600) Die_Count = 0;
@@ -659,8 +672,6 @@ void main_game(int selector, int mode)//난이도 선택 변수
 			}
 
 		}
-
-
 
 		std::stringstream caption, caption2;
 		caption << /* "FPS: " << (int)(frames*1000.0/(SDL_GetTicks() - fps_calc_timer+1)) << */"Score: " << score

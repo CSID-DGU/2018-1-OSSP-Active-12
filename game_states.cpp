@@ -93,7 +93,6 @@ int select_level()
 	{
 		if (SDL_PollEvent(&event))
 		{
-
 			message = TTF_RenderText_Solid(font, "Press space to start, esc key to quit", white);
 			apply_surface(0, 0, background, screen);
 			title_message = TTF_RenderText_Solid(font2, "Active Dodge", white);
@@ -567,13 +566,10 @@ void main_game(int selector, int mode)//난이도 선택 변수
 				current_balls--;
 				score++;
 
-				//if (score > LEVEL_UP_COUNT * (level - selector))
-				//{
-				//	level++;//score의 상태에 따라 레벨 증가
-				//
-
-				//15초마다 레벨 증가
-				//tend = clock();
+				if (score > LEVEL_UP_COUNT * (level - selector))
+				{
+					level++;//score의 상태에 따라 레벨 증가
+		 		}
 			}
 
 			SDL_Rect player_rect;

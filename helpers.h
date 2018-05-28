@@ -17,6 +17,7 @@ socket programming을 위하여 추가되 해더
 #include <cstdlib>
 #include <unistd.h>
 #include <netdb.h>
+#include <vector> //랭킹 시스템을 위해 추가
 
 const int FRAMES_PER_SECOND = 200;
 

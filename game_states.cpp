@@ -13,8 +13,6 @@ void menu()
 			mode = select_mode();
 			break;
 		case SINGLE_MODE:
-			init();
-			main_game(1, SINGLE_MODE);
 			mode = select_level();
 			break;
 		case MULTI_MODE:
@@ -441,7 +439,7 @@ void main_game(int selector, int mode)//난이도 선택 변수
 	Uint8 *keystates = NULL;
 	int start_time = SDL_GetTicks();
 	int level = 1 + selector; // level 정의
-	int life = 3; // life 추가
+	int life = 4; // life 추가
 	int enemy_life = 3;
 	int current_balls = 0;
 	int i = 0;
@@ -537,6 +535,12 @@ void main_game(int selector, int mode)//난이도 선택 변수
 		}//위 아래 이동 추가
 
 		apply_surface(0, 0, background, screen);
+		if (life == 5) {
+			apply_surface(420, 20, heart, screen); apply_surface(500, 20, heart, screen); apply_surface(540, 20, heart, screen); apply_surface(580, 20, heart, screen);
+		}
+		if (life == 4) {
+			apply_surface(460, 20, heart, screen); apply_surface(500, 20, heart, screen); apply_surface(540, 20, heart, screen); apply_surface(580, 20, heart, screen);
+		}
 		if (life == 3) {
 			apply_surface(500, 20, heart, screen); apply_surface(540, 20, heart, screen); apply_surface(580, 20, heart, screen);
 		}
@@ -646,6 +650,12 @@ void main_game(int selector, int mode)//난이도 선택 변수
 			apply_surface(player2_position - PLAYER_WIDTH / 2, player2_position_y - PLAYER_HEIGHT / 2/*SCREEN_HEIGHT - PLAYER_HEIGHT*/, player2, screen);//player2표시를 이동에 따라 표시
 			SDL_SetColorKey(player2, SDL_SRCCOLORKEY, SDL_MapRGB(player2->format, 255, 255, 255));
 			// Present enemy_life on screen
+			if (enemy_life == 5) {
+			apply_surface(420, 60, enemy_heart, screen); apply_surface(500, 60, enemy_heart, screen); apply_surface(540, 60, enemy_heart, screen); apply_surface(580, 60, enemy_heart, screen);
+			}
+			if (enemy_life == 4) {
+			apply_surface(460, 60, enemy_heart, screen); apply_surface(500, 60, enemy_heart, screen); apply_surface(540, 60, enemy_heart, screen); apply_surface(580, 60, enemy_heart, screen);
+			}
 			if (enemy_life == 3) {
 			apply_surface(500, 60, enemy_heart, screen); apply_surface(540, 60, enemy_heart, screen); apply_surface(580, 60, enemy_heart, screen);
 			}
@@ -789,8 +799,8 @@ void game_over(int level, int score, int state)
 	{
 		if (SDL_PollEvent(&event))
 		{
-			if (event.type == SDL_QUIT || 
-				(event.type == SDL_KEYDOWN && 
+			if (event.type == SDL_QUIT ||
+				(event.type == SDL_KEYDOWN &&
 				(event.key.keysym.sym == SDLK_SPACE || event.key.keysym.sym == SDLK_ESCAPE)))
 			{
 				break;

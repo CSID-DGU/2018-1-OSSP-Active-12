@@ -205,7 +205,7 @@ int socketing()
 			if (SDL_PollEvent(&event))
 			{
 				std::string str = "Server is Creating, Esc key to quit";
-				message = TTF_RenderText_Solid(font, str.c_str(), textColor);
+				message = TTF_RenderText_Solid(font, str.c_str(), white);
 				apply_surface(0, 0, background, screen);
 				apply_surface((640 - message->w) / 2, 480 / 2 - message->h, message, screen);
 
@@ -354,7 +354,7 @@ void waiting(bool **isConnect)
 	{
 		std::string str = "Waiting";
 		for (int j = 0; j < count; j++) str += " .";
-		message = TTF_RenderText_Solid(font, str.c_str(), textColor);
+		message = TTF_RenderText_Solid(font, str.c_str(), white);
 		apply_surface(0, 0, background, screen);
 		apply_surface((640 - message->w) / 2, 480 / 2 - message->h, message, screen);
 		SDL_Flip(screen);

@@ -30,7 +30,6 @@ bool compare(Rank a, Rank b){
 }
 
 vector<Rank> rankingList;
->>>>>>> c6ecef79ff7d1412deee7d25e24fbca142fd7928
 
 void menu()
 {
@@ -57,10 +56,10 @@ void menu()
 }
 
 string write_name(string name){
-  bool quit = false;
+  int quit = 0;
 	int mode = 0;
   name="";
-	while (quit == false)
+	while (quit == 0)
 	{
 		if (SDL_PollEvent(&event))
 		{
@@ -270,7 +269,7 @@ string write_name(string name){
 			else if (event.type == SDL_QUIT)
 			{
 				return name;
-				quit = true;
+				quit = 1;
 			}
 		}
 	}

@@ -39,11 +39,7 @@ extern SDL_Surface* player2;
 extern SDL_Surface* ball;
 extern SDL_Surface* heart;
 extern SDL_Surface* enemy_heart;
-<<<<<<< HEAD
 extern SDL_Surface* dollar;
-=======
-extern SDL_Surface *dollar;
->>>>>>> byunghyun
 
 const SDL_Color white = {255, 255, 255};
 extern SDL_Event event;

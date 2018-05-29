@@ -45,6 +45,7 @@ extern SDL_Surface* dollar;
 extern SDL_Surface *dollar;
 >>>>>>> byunghyun
 
+const SDL_Color white = {255, 255, 255};
 extern SDL_Event event;
 extern TTF_Font *font;
 extern TTF_Font *font2;

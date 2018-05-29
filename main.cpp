@@ -1,5 +1,4 @@
 #include "game_states.h"
-
 SDL_Surface *background = NULL;
 SDL_Surface *screen = NULL;
 SDL_Surface* title_message = NULL;

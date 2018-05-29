@@ -1,4 +1,35 @@
 #include "game_states.h"
+#include <vector>
+#include <algorithm>
+#include <fstream>
+using namespace std;
+
+class Rank{
+  string user_name;
+  int level;
+  int score;
+public:
+  Rank(string user_name, int level, int score){
+    this->user_name=user_name;
+    this->level=level;
+    this->score=score;
+  }
+  string getName(){
+    return user_name;
+  }
+  int getLevel(){
+    return level;
+  }
+  int getScore(){
+    return score;
+  }
+};
+
+bool compare(Rank a, Rank b){
+  return a.getScore() > b.getScore();
+}
+
+vector<Rank> rankingList;
 
 void menu()
 {
@@ -26,6 +57,273 @@ void menu()
 	}
 }
 
+string write_name(string name){
+  int quit = 0;
+	int mode = 0;
+  name="";
+	while (quit == 0)
+	{
+		if (SDL_PollEvent(&event))
+		{
+      message = TTF_RenderText_Solid(font, "Write your name and press space", textColor);
+			apply_surface(0, 0, background, screen);
+			SDL_Flip(screen);
+			title_message = TTF_RenderText_Solid(font2, "Awesome Dodge", textColor);
+			apply_surface((640 - title_message->w) / 2, 80, title_message, screen);
+			apply_surface((640 - message->w) / 2, 480 / 2 - message->h, message, screen);
+			SDL_Flip(screen);
+			if (event.type == SDL_KEYDOWN)
+			{
+				switch (event.key.keysym.sym)
+				{
+          case SDLK_0:
+          {
+            name+="0";
+            break;
+          }
+          case SDLK_1:
+          {
+            name+="1";
+            break;
+          }
+          case SDLK_2:
+          {
+            name+="2";
+            break;
+          }
+          case SDLK_3:
+          {
+            name+="3";
+            break;
+          }
+          case SDLK_4:
+          {
+            name+="4";
+            break;
+          }
+          case SDLK_5:
+          {
+            name+="5";
+            break;
+          }
+          case SDLK_6:
+          {
+            name+="6";
+            break;
+          }
+          case SDLK_7:
+          {
+            name+="7";
+            break;
+          }
+          case SDLK_8:
+          {
+            name+="8";
+            break;
+          }
+          case SDLK_9:
+          {
+            name+="9";
+            break;
+          }
+          case SDLK_a:
+          {
+            name+="a";
+            break;
+          }
+          case SDLK_b:
+          {
+            name+="b";
+            break;
+          }
+          case SDLK_c:
+          {
+            name+="c";
+            break;
+          }
+          case SDLK_d:
+          {
+            name+="d";
+            break;
+          }
+          case SDLK_e:
+          {
+            name+="e";
+            break;
+          }
+          case SDLK_f:
+          {
+            name+="f";
+            break;
+          }
+          case SDLK_g:
+          {
+            name+="g";
+            break;
+          }
+          case SDLK_h:
+          {
+            name+="h";
+            break;
+          }
+          case SDLK_i:
+          {
+            name+="i";
+            break;
+          }case SDLK_j:
+          {
+            name+="j";
+            break;
+          }
+          case SDLK_k:
+          {
+            name+="k";
+            break;
+          }
+          case SDLK_l:
+          {
+            name+="l";
+            break;
+          }
+          case SDLK_m:
+          {
+            name+="m";
+            break;
+          }
+          case SDLK_n:
+          {
+            name+="n";
+            break;
+          }
+          case SDLK_o:
+          {
+            name+="o";
+            break;
+          }
+          case SDLK_p:
+          {
+            name+="p";
+            break;
+          }
+          case SDLK_q:
+          {
+            name+="q";
+            break;
+          }
+          case SDLK_r:
+          {
+            name+="r";
+            break;
+          }
+          case SDLK_s:
+          {
+            name+="s";
+            break;
+          }
+          case SDLK_t:
+          {
+            name+="t";
+            break;
+          }
+          case SDLK_u:
+          {
+            name+="u";
+            break;
+          }
+          case SDLK_v:
+          {
+            name+="v";
+            break;
+          }
+          case SDLK_w:
+          {
+            name+="w";
+            break;
+          }
+          case SDLK_x:
+          {
+            name+="x";
+            break;
+          }
+          case SDLK_y:
+          {
+            name+="y";
+            break;
+          }
+          case SDLK_z:
+          {
+            name+="z";
+            break;
+          }
+				case SDLK_SPACE:
+				{
+					message = NULL;
+					return name;
+					break;
+				}
+				case SDLK_ESCAPE://esc 키가 눌리면 종료
+					return name;
+					break;
+				default:
+					break;
+				}
+			}
+			else if (event.type == SDL_QUIT)
+			{
+				return name;
+				quit = 1;
+			}
+		}
+	}
+  return name;
+}
+
+void ranking(int level, int score, int state){
+string t_name;
+string name;
+name = write_name(t_name);
+	//플레이어 닉네임 넣는 창 추후에 구현
+if (name==""){
+  name="guest";
+}
+	Rank temp(name, level, score);
+  rankingList.push_back(temp);
+	string p_name;
+	int p_level;
+	int p_score;
+	int num;//몇 명의 정보를 불러와야 하는지
+
+	std::ifstream rank_in;
+	rank_in.open("rank.txt");
+	rank_in>>num;//몇 명인지 불러온다
+
+  if(num!=0){
+	for(int i=0; i<num; i++){//저장되어 있는 수 동안
+		rank_in>>p_name;
+		rank_in>>p_level;
+		rank_in>>p_score;
+		Rank r(p_name, p_level, p_score);
+		rankingList.push_back(r);
+	}
+}
+	rank_in.close();
+	num++;
+  sort(rankingList.begin(), rankingList.end(), compare);
+	//랭킹 출력하는 화면 만들기
+
+	std::ofstream rank_save;
+	rank_save.open("rank.txt");
+	rank_save<<num<<endl;
+	for(int i=0;i<num;i++){
+		rank_save<<rankingList[i].getName()<<endl;
+		rank_save<<rankingList[i].getLevel()<<endl;
+		rank_save<<rankingList[i].getScore()<<endl;
+	}
+	rank_save.close();
+
+	game_over(level, score, SINGLE_MODE);
+}
+
 int select_mode()
 {
 	bool quit = false;
@@ -34,16 +332,16 @@ int select_mode()
 	{
 		if (SDL_PollEvent(&event))
 		{
-			message = TTF_RenderText_Solid(font, "Press space to start, esc key to quit", textColor);
+			message = TTF_RenderText_Solid(font, "Press space to start, esc key to quit", white);
 			apply_surface(0, 0, background, screen);
-			title_message = TTF_RenderText_Solid(font2, "Awesome Dodge", textColor);
+			title_message = TTF_RenderText_Solid(font2, "Active Dodge", white);
 			apply_surface((640 - title_message->w) / 2, 80, title_message, screen);
 			apply_surface((640 - message->w) / 2, 480 / 2 - message->h, message, screen);
-			message = TTF_RenderText_Solid(font, "Single         Multi", textColor);
+			message = TTF_RenderText_Solid(font, "Single         Multi", white);
 			apply_surface((640 - message->w) / 2, 480 / 2 + message->h, message, screen);
-			message2 = TTF_RenderText_Solid(font, "Single         ", textColor);
+			message2 = TTF_RenderText_Solid(font, "Single         ", white);
 			int tmp = message2->w;
-			message2 = TTF_RenderText_Solid(font, ">", textColor);
+			message2 = TTF_RenderText_Solid(font, ">", white);
 			apply_surface((640 - message->w) / 2 - 8 + mode * tmp, 480 / 2 + message->h, message2, screen);
 			SDL_Flip(screen);
 			if (event.type == SDL_KEYDOWN)
@@ -93,22 +391,24 @@ int select_level()
 	{
 		if (SDL_PollEvent(&event))
 		{
-			message = TTF_RenderText_Solid(font, "Press space to start, esc key to quit", textColor);
+			message = TTF_RenderText_Solid(font, "Press space to start, esc key to quit", white);
 			apply_surface(0, 0, background, screen);
-			title_message = TTF_RenderText_Solid(font2, "Awesome Dodge", textColor);
+			title_message = TTF_RenderText_Solid(font2, "Active Dodge", white);
 			apply_surface((640 - title_message->w) / 2, 100, title_message, screen);
 			apply_surface((640 - message->w) / 2, 480 / 2 - message->h, message, screen);
-			message = TTF_RenderText_Solid(font, "level 1         level 2        level 3", textColor);
-			apply_surface((640 - message->w) / 2, 480 / 2 + message->h, message, screen);
-			message2 = TTF_RenderText_Solid(font, "level 1         ", textColor);
-			int tmp = message2->w;
-			message2 = TTF_RenderText_Solid(font, ">", textColor);
-			apply_surface((640 - message->w) / 2 - 8 + selector * tmp, 480 / 2 + message->h, message2, screen);
+			//message = TTF_RenderText_Solid(font, "level 1         level 2        level 3", textColor);
+			//apply_surface((640 - message->w) / 2, 480 / 2 + message->h, message, screen);
+			//message2 = TTF_RenderText_Solid(font, "level 1         ", textColor);
+			//int tmp = message2->w;
+			//message2 = TTF_RenderText_Solid(font, ">", textColor);
+			//apply_surface((640 - message->w) / 2 - 8 + selector * tmp, 480 / 2 + message->h, message2, screen);
 			SDL_Flip(screen);
+
 			if (event.type == SDL_KEYDOWN)
 			{
 				switch (event.key.keysym.sym)
 				{
+				/*
 				case SDLK_RIGHT:
 				{
 					if (selector >= 2) break;
@@ -121,6 +421,7 @@ int select_level()
 					selector--;
 					break;
 				}
+				*/
 				case SDLK_SPACE:
 				{
 					message = NULL;
@@ -351,7 +652,7 @@ void waiting(bool **isConnect)
 	{
 		std::string str = "Waiting";
 		for (int j = 0; j < count; j++) str += " .";
-		message = TTF_RenderText_Solid(font, str.c_str(), textColor);
+		message = TTF_RenderText_Solid(font, str.c_str(), white);
 		apply_surface(0, 0, background, screen);
 		apply_surface((640 - message->w) / 2, 480 / 2 - message->h, message, screen);
 		SDL_Flip(screen);
@@ -384,14 +685,13 @@ bool init()
 		return false;
 	}
 	srand(time(NULL));
-	SDL_WM_SetCaption("Awesome", NULL);
+	SDL_WM_SetCaption("Active", NULL);
 
 	return true;
 }
 
 bool load_files()
 {
-
 	background = load_image("assets/background.png");
 	dollar = load_image("assets/dollar.png");
 	font = TTF_OpenFont("assets/BMDOHYEON_ttf.ttf", 24);
@@ -458,6 +758,12 @@ void main_game(int selector, int mode)//난이도 선택 변수
 	int fps_calc_timer = SDL_GetTicks();
 	int score = 0;
 
+	//time check, score
+	clock_t tstart = clock();
+	clock_t tend;
+	long ttemp;
+	long sec=0; //seconds
+
 	int randomball[MAX_BALLS]; // 떨어지는 볼의 속도를 랜덤하게 조정하기 위해 선언한 배열
 	int randomadddlife[MAX_ADDLIFE];
 	int randomaddscore[MAX_ADDSCORE];
@@ -519,7 +825,6 @@ void main_game(int selector, int mode)//난이도 선택 변수
 					new_ball.y = -(5 + rand() % 350);
 					new_ball.w = new_ball.h = BALL_SIZE;
 					balls[i] = new_ball;
-
 				}
 			}
 			current_balls = MAX_BALLS;
@@ -605,7 +910,9 @@ void main_game(int selector, int mode)//난이도 선택 변수
 			apply_surface(460, 20, heart, screen); apply_surface(500, 20, heart, screen); apply_surface(540, 20, heart, screen); apply_surface(580, 20, heart, screen);
 		}
 		if (life == 3) {
-			apply_surface(500, 20, heart, screen); apply_surface(540, 20, heart, screen); apply_surface(580, 20, heart, screen);
+			apply_surface(500, 20, heart, screen);
+			apply_surface(540, 20, heart, screen);
+			apply_surface(580, 20, heart, screen);
 		}
 		// heart decrease as life goes down
 		else if (life == 2) {
@@ -633,11 +940,13 @@ void main_game(int selector, int mode)//난이도 선택 변수
 			{
 				current_balls--;
 				score++;
+
 				if (score > LEVEL_UP_COUNT * (level - selector))
 				{
 					level++;//score의 상태에 따라 레벨 증가
-				}
+		 		}
 			}
+
 			SDL_Rect player_rect;
 			SDL_Rect player_rect2;
 			player_rect.x = player_position - PLAYER_WIDTH / 2;
@@ -696,7 +1005,8 @@ void main_game(int selector, int mode)//난이도 선택 변수
 
 					if(mode == SINGLE_MODE)
 					{
-						game_over(level, score, SINGLE_MODE);
+						ranking(level, score, SINGLE_MODE);
+						//game_over(level, score, SINGLE_MODE);
 					}
 					else
 					{
@@ -710,6 +1020,7 @@ void main_game(int selector, int mode)//난이도 선택 변수
 				}
 			}
 		}
+
 		if (Die_Count == 0 || Die_Count % 2 == 0)
 		{
 			if (Die_Count >= 600) Die_Count = 0;
@@ -741,14 +1052,12 @@ void main_game(int selector, int mode)//난이도 선택 변수
 
 		}
 
-
-
 		std::stringstream caption, caption2;
 		caption << /* "FPS: " << (int)(frames*1000.0/(SDL_GetTicks() - fps_calc_timer+1)) << */"Score: " << score
 			<< "       Level: " << level;//level 추가로 표시
-		message = TTF_RenderText_Solid(font, caption.str().c_str(), textColor);
+		message = TTF_RenderText_Solid(font, caption.str().c_str(), white);
 		caption2 << "Life: " << life;
-		message2 = TTF_RenderText_Solid(font, caption2.str().c_str(), textColor);
+		message2 = TTF_RenderText_Solid(font, caption2.str().c_str(), white);
 		if (SDL_GetTicks() - fps_calc_timer > 5000)
 		{
 			frames = 1;
@@ -864,27 +1173,27 @@ void game_over(int level, int score, int state)
 		//SINGLE_MODE
 		case SINGLE_MODE:
 		apply_surface(0, 0, background, screen);
-		message = TTF_RenderText_Solid(font, "Game over", textColor);
+		message = TTF_RenderText_Solid(font, "Game over", white);
 		apply_surface((SCREEN_WIDTH - message->w) / 2, SCREEN_HEIGHT / 2 - message->h, message, screen);
 		caption << "Level : " << level;
-		message = TTF_RenderText_Solid(font, caption.str().c_str(), textColor);
+		message = TTF_RenderText_Solid(font, caption.str().c_str(), white);
 		apply_surface((SCREEN_WIDTH - message->w) / 2, SCREEN_HEIGHT / 2 + message->h, message, screen);
 		caption2 << "Score is : " << score;
-		message = TTF_RenderText_Solid(font, caption2.str().c_str(), textColor);
+		message = TTF_RenderText_Solid(font, caption2.str().c_str(), white);
 		apply_surface((SCREEN_WIDTH - message->w) / 2, SCREEN_HEIGHT / 2 + message->h + 50, message, screen);
 		SDL_Flip(screen);
 		break;
 		// 1 == WIN_CASE
 		case WINNER:
 		apply_surface(0, 0, background, screen);
-		message = TTF_RenderText_Solid(font, "! ! ! YOU WIN ! ! !", textColor);
+		message = TTF_RenderText_Solid(font, "! ! ! YOU WIN ! ! !", white);
 		apply_surface((SCREEN_WIDTH - message->w) / 2, SCREEN_HEIGHT / 2 - message->h, message, screen);
 		SDL_Flip(screen);
 		break;
 		// 2 == LOSE_CASE
 		case LOSER:
 		apply_surface(0, 0, background, screen);
-		message = TTF_RenderText_Solid(font, "( T . T ) YOU LOSE ( T . T )", textColor);
+		message = TTF_RenderText_Solid(font, "( T . T ) YOU LOSE ( T . T )", white);
 		apply_surface((SCREEN_WIDTH - message->w) / 2, SCREEN_HEIGHT / 2 - message->h, message, screen);
 		SDL_Flip(screen);
 		break;

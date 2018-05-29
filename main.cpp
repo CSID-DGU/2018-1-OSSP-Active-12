@@ -10,7 +10,11 @@ SDL_Surface* player2 = NULL;
 SDL_Surface* ball = NULL;
 SDL_Surface* heart = NULL;
 SDL_Surface* enemy_heart = NULL;
+<<<<<<< HEAD
 SDL_Surface* dollar = NULL;
+=======
+SDL_Surface *dollar = NULL;
+>>>>>>> byunghyun
 
 SDL_Event event;
 TTF_Font *font = NULL;
@@ -19,6 +23,10 @@ TTF_Font *font2 = NULL;
 SDL_Rect balls[MAX_BALLS];
 SDL_Rect addlife[MAX_ADDLIFE];
 SDL_Rect addscore[MAX_ADDSCORE];
+<<<<<<< HEAD
+=======
+
+>>>>>>> byunghyun
 
 SDL_Color textColor = { 0, 0, 0 };
 

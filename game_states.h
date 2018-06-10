@@ -8,7 +8,7 @@ const int PLAYER_WIDTH = 30;
 const int PLAYER_HEIGHT = 21;
 
 const int BALL_SIZE = 10;
-const int ADDLIFE_SIZE = 10;
+const int ADDLIFE_SIZE = 5;
 const int ADDSCORE_SIZE = 10;
 
 const int MAX_BALLS = 25;

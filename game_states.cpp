@@ -743,11 +743,12 @@ void main_game(int selector, int mode)//난이도 선택 변수
 	Uint8 *keystates = NULL;
 	int start_time = SDL_GetTicks();
 	int level = 1 + selector; // level 정의
-	int life = 4; // life 추가
+	int life = 3; // life 추가
 	int enemy_life = 3;
 	int current_balls = 0;
 	int current_addlife = 0;
 	int current_addscore = 0;
+  int scorecheck = 0; //addlife위함
 
 	int i = 0;
 	int Die_Count = 0;
@@ -787,11 +788,11 @@ void main_game(int selector, int mode)//난이도 선택 변수
 		{
 			randomball[i] = (double)rand() / RAND_MAX * (level - 1) + BALL_VELOCITY; // 초기 속도와 레벨 사이의 난수 생성
 		}
-		for (i = 0; i < current_balls; i++)
+		for (i = 0; i < current_addlife; i++)
 		{
 			randomadddlife[i] = (double)rand() / RAND_MAX * (level - 1) + ADDLIFE_VELOCITY;
 		}
-		for (i = 0; i < current_balls; i++)
+		for (i = 0; i < current_addscore; i++)
 		{
 			randomaddscore[i] = (double)rand() / RAND_MAX * (level - 1) + ADDSCORE_VELOCITY;
 		}
@@ -833,7 +834,7 @@ void main_game(int selector, int mode)//난이도 선택 변수
 		{
 			for (i = 0; i < MAX_ADDLIFE; i++)
 			{
-				if (addlife[i].y > SCREEN_HEIGHT || addlife[i].y == 0)
+				if (addlife[i].y > SCREEN_HEIGHT)
 				{
 					SDL_Rect new_addlife;
 					new_addlife.x = ADDLIFE_SIZE / 2 + rand() % (SCREEN_WIDTH - ADDLIFE_SIZE / 2);
@@ -904,15 +905,13 @@ void main_game(int selector, int mode)//난이도 선택 변수
 
 		apply_surface(0, 0, background, screen);
 		if (life == 5) {
-			apply_surface(420, 20, heart, screen); apply_surface(440, 20, heart, screen); apply_surface(500, 20, heart, screen); apply_surface(540, 20, heart, screen); apply_surface(580, 20, heart, screen);
+			apply_surface(420, 20, heart, screen); apply_surface(460, 20, heart, screen); apply_surface(500, 20, heart, screen); apply_surface(540, 20, heart, screen); apply_surface(580, 20, heart, screen);
 		}
 		if (life == 4) {
 			apply_surface(460, 20, heart, screen); apply_surface(500, 20, heart, screen); apply_surface(540, 20, heart, screen); apply_surface(580, 20, heart, screen);
 		}
 		if (life == 3) {
-			apply_surface(500, 20, heart, screen);
-			apply_surface(540, 20, heart, screen);
-			apply_surface(580, 20, heart, screen);
+			apply_surface(500, 20, heart, screen); apply_surface(540, 20, heart, screen); apply_surface(580, 20, heart, screen);
 		}
 		// heart decrease as life goes down
 		else if (life == 2) {
@@ -922,21 +921,28 @@ void main_game(int selector, int mode)//난이도 선택 변수
 			apply_surface(580, 20, heart, screen);
 		}
 
-		for (i = 0; i < MAX_ADDLIFE; i++)
-		{
-			apply_surface(addlife[i].x, addlife[i].y, heart, screen);//판정을 위해서 고친 부분
-		}
-		for (i = 0; i < MAX_ADDSCORE; i++)
-		{
-			apply_surface(addscore[i].x, addscore[i].y, dollar, screen);//판정을 위해서 고친 부분
-		}
+    for (i=0; i < MAX_ADDLIFE; i++)
+    {
+      apply_surface(addlife[i].x, addlife[i].y, heart, screen);
+      if (score % 50 == 0)
+      {
+        current_addlife--;
+      }
+    }
+    for (i=0; i < MAX_ADDSCORE; i++)
+    {
+      apply_surface(addscore[i].x, addscore[i].y, dollar, screen);
+      if (score % 40 == 0)
+      {
+        current_addscore--;
+      }
+    }
 
-
-		for (i = 0; i < MAX_BALLS; i++)
+  	for (i = 0; i < MAX_BALLS; i++)
 		{
-			// printf("ball %i: %i %i\n",i , balls[i].x, balls[i].y);
+    	// printf("ball %i: %i %i\n",i , balls[i].x, balls[i].y);
 			apply_surface(balls[i].x, balls[i].y, ball, screen);//판정을 위해서 고친 부분
-			if (balls[i].y > SCREEN_HEIGHT)
+      if (balls[i].y > SCREEN_HEIGHT)
 			{
 				current_balls--;
 				score++;
@@ -957,7 +963,18 @@ void main_game(int selector, int mode)//난이도 선택 변수
 			player_rect2.y = player2_position_y - PLAYER_HEIGHT / 2;
 			player_rect2.w = PLAYER_WIDTH;
 			player_rect2.h = PLAYER_HEIGHT;
-			if (intersects(balls[i], player_rect) && Die_Count == 0)
+
+      if (intersects(addlife[i], player_rect))
+      {
+        life++;
+        addlife[i].x=-100;
+      }
+      if (intersects(addscore[i], player_rect))
+      {
+        score+=5;
+        addscore[i].x=-100;
+      }
+      if (intersects(balls[i], player_rect) && Die_Count == 0)
 			{
 				life--;
 				if (life <= 0) //life소진시 종료
@@ -1021,7 +1038,7 @@ void main_game(int selector, int mode)//난이도 선택 변수
 			}
 		}
 
-		if (Die_Count == 0 || Die_Count % 2 == 0)
+  	if (Die_Count == 0 || Die_Count % 2 == 0)
 		{
 			if (Die_Count >= 600) Die_Count = 0;
 			apply_surface(player_position - PLAYER_WIDTH / 2, player_position_y - PLAYER_HEIGHT / 2/*SCREEN_HEIGHT - PLAYER_HEIGHT*/, player, screen);//player표시를 이동에 따라 표시
@@ -1143,24 +1160,24 @@ void init_ball()
 }
 void init_addlife()
 {
-	for (int i = 0; i < MAX_BALLS; i++)
+	for (int i = 0; i < MAX_ADDLIFE; i++)
 	{
-		SDL_Rect new_ball;
-		new_ball.x = BALL_SIZE / 2 + rand() % (SCREEN_WIDTH - BALL_SIZE / 2);
-		new_ball.y = -(5 + rand() % 350);
-		new_ball.w = new_ball.h = BALL_SIZE;
-		balls[i] = new_ball;
+		SDL_Rect new_addlife;
+		new_addlife.x = ADDLIFE_SIZE / 2 + rand() % (SCREEN_WIDTH - ADDLIFE_SIZE / 2);
+		new_addlife.y = -(5 + rand() % 350);
+		new_addlife.w = new_addlife.h = ADDLIFE_SIZE;
+		addlife[i] = new_addlife;
 	}
 }
 void init_addscore()
 {
-	for (int i = 0; i < MAX_BALLS; i++)
+	for (int i = 0; i < MAX_ADDSCORE; i++)
 	{
-		SDL_Rect new_ball;
-		new_ball.x = BALL_SIZE / 2 + rand() % (SCREEN_WIDTH - BALL_SIZE / 2);
-		new_ball.y = -(5 + rand() % 350);
-		new_ball.w = new_ball.h = BALL_SIZE;
-		balls[i] = new_ball;
+		SDL_Rect new_addscore;
+		new_addscore.x = ADDSCORE_SIZE / 2 + rand() % (SCREEN_WIDTH - ADDSCORE_SIZE / 2);
+		new_addscore.y = -(5 + rand() % 350);
+		new_addscore.w = new_addscore.h = ADDSCORE_SIZE;
+		addscore[i] = new_addscore;
 	}
 }
 

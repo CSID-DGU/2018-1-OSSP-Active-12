@@ -1,5 +1,4 @@
 #include "game_states.h"
-//test
 SDL_Surface *background = NULL;
 SDL_Surface *screen = NULL;
 SDL_Surface* title_message = NULL;
@@ -10,12 +9,15 @@ SDL_Surface* player2 = NULL;
 SDL_Surface* ball = NULL;
 SDL_Surface* heart = NULL;
 SDL_Surface* enemy_heart = NULL;
+SDL_Surface* dollar = NULL;
 
 SDL_Event event;
 TTF_Font *font = NULL;
 TTF_Font *font2 = NULL;
 
 SDL_Rect balls[MAX_BALLS];
+SDL_Rect addlife[MAX_ADDLIFE];
+SDL_Rect addscore[MAX_ADDSCORE];
 
 SDL_Color textColor = { 0, 0, 0 };
 

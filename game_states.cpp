@@ -5,6 +5,8 @@
 
 using namespace std;
 
+//Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+
 class Rank{
   string user_name;
   int level;
@@ -58,6 +60,46 @@ void menu()
 	}
 }
 
+void show_rank(){
+  int size = rankingList.size();
+  int quit = 0;
+	int mode = 0;
+  //name="";
+	while (quit == 0)
+	{
+		if (SDL_PollEvent(&event))
+		{
+      message = TTF_RenderText_Solid(font, "Rank List", white);
+			apply_surface(0, 0, background, screen);
+			SDL_Flip(screen);
+			title_message = TTF_RenderText_Solid(font2, "Active Dodge", white);
+			apply_surface((640 - title_message->w) / 2, 80, title_message, screen);
+			apply_surface((640 - message->w) / 2, 480 / 2 - message->h, message, screen);
+			SDL_Flip(screen);
+			if (event.type == SDL_KEYDOWN)
+			{
+				switch (event.key.keysym.sym)
+				{
+
+				case SDLK_SPACE:
+				{
+					message = NULL;
+					break;
+				}
+				case SDLK_ESCAPE://esc 키가 눌리면 종료
+					break;
+				default:
+					break;
+				}
+			}
+			else if (event.type == SDL_QUIT)
+			{
+				quit = 1;
+			}
+		}
+	}
+}
+
 string write_name(string name){
   int quit = 0;
 	int mode = 0;
@@ -66,10 +108,10 @@ string write_name(string name){
 	{
 		if (SDL_PollEvent(&event))
 		{
-      message = TTF_RenderText_Solid(font, "Write your name and press space", textColor);
+      message = TTF_RenderText_Solid(font, "Write your name and press space", white);
 			apply_surface(0, 0, background, screen);
 			SDL_Flip(screen);
-			title_message = TTF_RenderText_Solid(font2, "Awesome Dodge", textColor);
+			title_message = TTF_RenderText_Solid(font2, "Active Dodge", white);
 			apply_surface((640 - title_message->w) / 2, 80, title_message, screen);
 			apply_surface((640 - message->w) / 2, 480 / 2 - message->h, message, screen);
 			SDL_Flip(screen);
@@ -312,6 +354,8 @@ if (name==""){
   sort(rankingList.begin(), rankingList.end(), compare);
 	//랭킹 출력하는 화면 만들기
 
+sort(rankingList.begin(), rankingList.end(), compare);
+
 	std::ofstream rank_save;
 	rank_save.open("rank.txt");
 	rank_save<<num<<endl;
@@ -504,7 +548,7 @@ int socketing()
 			if (SDL_PollEvent(&event))
 			{
 				std::string str = "Server is Creating, Esc key to quit";
-				message = TTF_RenderText_Solid(font, str.c_str(), textColor);
+				message = TTF_RenderText_Solid(font, str.c_str(), white);
 				apply_surface(0, 0, background, screen);
 				apply_surface((640 - message->w) / 2, 480 / 2 - message->h, message, screen);
 
@@ -664,7 +708,7 @@ void waiting(bool **isConnect)
 
 void waitClient(bool **isConnect)
 {
-	 server = accept(client, (struct sockaddr *)&server_addr, &size);
+	 server = accept(client, (struct sockaddr*)&server_addr, &size);
 	 **isConnect = true;
 }
 
@@ -694,16 +738,18 @@ bool init()
 bool load_files()
 {
 	background = load_image("assets/background.png");
+	font = TTF_OpenFont("assets/210 Macaron B.ttf", 24);
+	font2 = TTF_OpenFont("assets/210 Haneuljungwon B.ttf", 48);
 	dollar = load_image("assets/dollar.png");
-	font = TTF_OpenFont("assets/BMDOHYEON_ttf.ttf", 24);
-	font2 = TTF_OpenFont("assets/RaphLanokFuture.otf", 48);
-
-	player = SDL_LoadBMP("assets/player1.bmp");
+  player = SDL_LoadBMP("assets/player1.bmp");
 	player2 = SDL_LoadBMP("assets/player2.bmp");
 	ball = load_image("assets/rocket.bmp");
 	heart = SDL_LoadBMP("assets/heart.bmp");
 	enemy_heart = SDL_LoadBMP("assets/enemy_heart.bmp");
 
+  //startBgm = Mix_LoadMUS("asserts/Title.mp3");
+  //playBgm = Mix_LoadMUS("asserts/Battle.mp3");
+  //rankBgm = Mix_LoadMUS("asserts/Raindrop_Flower.mp3");
 	if (background == NULL)
 	{
 		return false;
@@ -967,13 +1013,14 @@ void main_game(int selector, int mode)//난이도 선택 변수
 
       if (intersects(addlife[i], player_rect))
       {
-        life++;
+        if(life<=5)
+          life++;
         addlife[i].x=-100;
-
       }
       if (intersects(addscore[i], player_rect))
       {
-        score+=5;
+        //score+=5;
+        init_ball();
         addscore[i].x=-100;
       }
       if (intersects(balls[i], player_rect) && Die_Count == 0)

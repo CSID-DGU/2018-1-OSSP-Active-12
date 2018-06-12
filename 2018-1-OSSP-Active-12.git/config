@@ -1,0 +1,8 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = true
+[remote "origin"]
+	url = https://github.com/CSID-DGU/2018-1-OSSP-Active-12
+	fetch = +refs/*:refs/*
+	mirror = true

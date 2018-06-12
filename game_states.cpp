@@ -974,6 +974,7 @@ void main_game(int selector, int mode)//난이도 선택 변수
       if (intersects(addscore[i], player_rect))
       {
         score+=5;
+        //init_ball();
         addscore[i].x=-100;
       }
       if (intersects(balls[i], player_rect) && Die_Count == 0)

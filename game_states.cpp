@@ -30,7 +30,6 @@ bool compare(Rank a, Rank b){
 }
 
 vector<Rank> rankingList;
->>>>>>> c6ecef79ff7d1412deee7d25e24fbca142fd7928
 
 void menu()
 {
@@ -57,17 +56,17 @@ void menu()
 }
 
 string write_name(string name){
-  bool quit = false;
+  int quit = 0;
 	int mode = 0;
   name="";
-	while (quit == false)
+	while (quit == 0)
 	{
 		if (SDL_PollEvent(&event))
 		{
-      message = TTF_RenderText_Solid(font, "Write your name and press space", textColor);
+      message = TTF_RenderText_Solid(font, "Write your name and press space", white);
 			apply_surface(0, 0, background, screen);
 			SDL_Flip(screen);
-			title_message = TTF_RenderText_Solid(font2, "Awesome Dodge", textColor);
+			title_message = TTF_RenderText_Solid(font2, "Active Dodge", white);
 			apply_surface((640 - title_message->w) / 2, 80, title_message, screen);
 			apply_surface((640 - message->w) / 2, 480 / 2 - message->h, message, screen);
 			SDL_Flip(screen);
@@ -270,7 +269,7 @@ string write_name(string name){
 			else if (event.type == SDL_QUIT)
 			{
 				return name;
-				quit = true;
+				quit = 1;
 			}
 		}
 	}
@@ -662,7 +661,7 @@ void waiting(bool **isConnect)
 
 void waitClient(bool **isConnect)
 {
-	 server = accept(client, (struct sockaddr *)&server_addr, &size);
+	 server = accept(client, (struct sockaddr*)&server_addr, &size);
 	 **isConnect = true;
 }
 
@@ -692,8 +691,8 @@ bool init()
 bool load_files()
 {
 	background = load_image("assets/background.png");
-	font = TTF_OpenFont("assets/BMDOHYEON_ttf.ttf", 24);
-	font2 = TTF_OpenFont("assets/RaphLanokFuture.otf", 48);
+	font = TTF_OpenFont("assets/210 Macaron B.ttf", 24);
+	font2 = TTF_OpenFont("assets/210 Haneuljungwon B.ttf", 48);
 
 	player = SDL_LoadBMP("assets/player1.bmp");
 	player2 = SDL_LoadBMP("assets/player2.bmp");

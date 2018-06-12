@@ -8,9 +8,17 @@ const int PLAYER_WIDTH = 30;
 const int PLAYER_HEIGHT = 21;
 
 const int BALL_SIZE = 10;
+const int ADDLIFE_SIZE = 5;
+const int ADDSCORE_SIZE = 10;
+
 const int MAX_BALLS = 25;
+const int MAX_ADDLIFE = 1;
+const int MAX_ADDSCORE = 1;
 
 const int BALL_VELOCITY = 2;
+const int ADDLIFE_VELOCITY = 2;
+const int ADDSCORE_VELOCITY = 2;
+
 const int LEVEL_UP_COUNT = 100;//level이 증가할때에 대비해서 추가
 const int INITIAL_MODE = 10;
 const int EXIT = -1;
@@ -31,6 +39,11 @@ extern SDL_Surface* player2;
 extern SDL_Surface* ball;
 extern SDL_Surface* heart;
 extern SDL_Surface* enemy_heart;
+extern SDL_Surface* dollar;
+
+//extern Mix_Music* startBgm;
+//extern Mix_Music* playBgm;
+//extern Mix_Music* rankBgm;
 
 const SDL_Color white = {255, 255, 255};
 extern SDL_Event event;
@@ -38,6 +51,8 @@ extern TTF_Font *font;
 extern TTF_Font *font2;
 
 extern SDL_Rect balls[MAX_BALLS];
+extern SDL_Rect addlife[MAX_ADDLIFE];
+extern SDL_Rect addscore[MAX_ADDSCORE];
 
 extern SDL_Color textColor;
 
@@ -47,6 +62,8 @@ void clean_up();
 
 void main_game(int selector, int mode);
 void init_ball();
+void init_addlife();
+void init_addscore();
 void game_over(int level, int score, int state);
 void menu();
 int select_mode();
@@ -54,7 +71,7 @@ int select_level();
 void waiting(bool **isConnect);
 int socketing();
 void waitClient(bool **isConnect);
-
+void show_rank();
 //socket variable
 static const int bufsize = 16;
 static const char ip[20] = "127.0.0.1";

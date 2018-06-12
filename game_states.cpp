@@ -4,6 +4,8 @@
 #include <fstream>
 using namespace std;
 
+//Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+
 class Rank{
   string user_name;
   int level;
@@ -53,6 +55,46 @@ void menu()
 			break;
 		default:
 			break;
+		}
+	}
+}
+
+void show_rank(){
+  int size = rankingList.size();
+  int quit = 0;
+	int mode = 0;
+  name="";
+	while (quit == 0)
+	{
+		if (SDL_PollEvent(&event))
+		{
+      message = TTF_RenderText_Solid(font, "Rank List", white);
+			apply_surface(0, 0, background, screen);
+			SDL_Flip(screen);
+			title_message = TTF_RenderText_Solid(font2, "Active Dodge", white);
+			apply_surface((640 - title_message->w) / 2, 80, title_message, screen);
+			apply_surface((640 - message->w) / 2, 480 / 2 - message->h, message, screen);
+			SDL_Flip(screen);
+			if (event.type == SDL_KEYDOWN)
+			{
+				switch (event.key.keysym.sym)
+				{
+
+				case SDLK_SPACE:
+				{
+					message = NULL;
+					break;
+				}
+				case SDLK_ESCAPE://esc 키가 눌리면 종료
+					break;
+				default:
+					break;
+				}
+			}
+			else if (event.type == SDL_QUIT)
+			{
+				quit = 1;
+			}
 		}
 	}
 }
@@ -703,6 +745,9 @@ bool load_files()
 	heart = SDL_LoadBMP("assets/heart.bmp");
 	enemy_heart = SDL_LoadBMP("assets/enemy_heart.bmp");
 
+  startBgm = Mix_LoadMUS("asserts/Title.mp3");
+  playBgm = Mix_LoadMUS("asserts/Battle.mp3");
+  rankBgm = Mix_LoadMUS("asserts/Raindrop_Flower.mp3");
 	if (background == NULL)
 	{
 		return false;

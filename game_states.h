@@ -41,6 +41,10 @@ extern SDL_Surface* heart;
 extern SDL_Surface* enemy_heart;
 extern SDL_Surface* dollar;
 
+//extern Mix_Music* startBgm;
+//extern Mix_Music* playBgm;
+//extern Mix_Music* rankBgm;
+
 const SDL_Color white = {255, 255, 255};
 extern SDL_Event event;
 extern TTF_Font *font;
@@ -67,7 +71,7 @@ int select_level();
 void waiting(bool **isConnect);
 int socketing();
 void waitClient(bool **isConnect);
-
+void show_rank();
 //socket variable
 static const int bufsize = 16;
 static const char ip[20] = "127.0.0.1";

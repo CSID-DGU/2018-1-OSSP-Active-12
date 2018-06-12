@@ -1,4 +1,4 @@
-6
+7
 youngjoo
 2
 155
@@ -14,6 +14,9 @@ guest
 guest
 1
 22
+guest
+1
+5
 juyong
 1
 0

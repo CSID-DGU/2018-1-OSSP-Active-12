@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2
 guest
 2
@@ -5,3 +6,5 @@ guest
 guest
 2
 0
+=======
+>>>>>>> origin/master

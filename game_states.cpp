@@ -695,8 +695,8 @@ bool load_files()
 {
 	background = load_image("assets/background.png");
 	dollar = load_image("assets/dollar.png");
-	font = TTF_OpenFont("assets/BMDOHYEON_ttf.ttf", 24);
-	font2 = TTF_OpenFont("assets/RaphLanokFuture.otf", 48);
+	font = TTF_OpenFont("assets/210 Macaron B.ttf", 24);
+	font2 = TTF_OpenFont("assets/210 Haneuljungwon B.ttf", 72);
 
 	player = SDL_LoadBMP("assets/player1.bmp");
 	player2 = SDL_LoadBMP("assets/player2.bmp");

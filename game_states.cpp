@@ -66,10 +66,10 @@ string write_name(string name){
 	{
 		if (SDL_PollEvent(&event))
 		{
-      message = TTF_RenderText_Solid(font, "Write your name and press space", textColor);
+      message = TTF_RenderText_Solid(font, "Write your name and press space", white);
 			apply_surface(0, 0, background, screen);
 			SDL_Flip(screen);
-			title_message = TTF_RenderText_Solid(font2, "Awesome Dodge", textColor);
+			title_message = TTF_RenderText_Solid(font2, "Awesome Dodge", white);
 			apply_surface((640 - title_message->w) / 2, 80, title_message, screen);
 			apply_surface((640 - message->w) / 2, 480 / 2 - message->h, message, screen);
 			SDL_Flip(screen);

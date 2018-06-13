@@ -1,0 +1,13 @@
+# pack-refs with: peeled fully-peeled sorted 
+acf4d99ff62be07e93d5de54e52889f538529165 refs/heads/byunghyun
+8f12df6d0be3e1232f7be64a74f4917d8944a430 refs/heads/juyong
+fcef9101232878f8dbe33794b75746d22c413867 refs/heads/master
+3cfa0876f48e18ae5be56e2f71c46ff36d685241 refs/heads/test
+2e45374ff91f62ba801d1e4186e7da0786897ef9 refs/pull/1/head
+64484c3815cd4ebe22a85aa35051f3a0cf02fe94 refs/pull/1/merge
+f75bc31ba49560cdbafd606e7ba77d31f4611dfa refs/pull/2/head
+c2a7fa775fc494cb76411fe1c4934acb2b436e83 refs/pull/2/merge
+8f12df6d0be3e1232f7be64a74f4917d8944a430 refs/pull/3/head
+8f12df6d0be3e1232f7be64a74f4917d8944a430 refs/pull/4/head
+05e856c304a3c9b0d9f3bddb9562c2ccae68f0da refs/pull/5/head
+2aedc87a5ffdeae13d2359e25a9a42a2d4245630 refs/pull/6/head

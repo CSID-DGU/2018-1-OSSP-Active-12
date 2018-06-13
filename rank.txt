@@ -1,7 +1,4 @@
-2
-guest
 1
-78
 guest
 2
 0

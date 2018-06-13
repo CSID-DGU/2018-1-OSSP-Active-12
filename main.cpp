@@ -10,6 +10,8 @@ SDL_Surface* ball = NULL;
 SDL_Surface* heart = NULL;
 SDL_Surface* enemy_heart = NULL;
 SDL_Surface* dollar = NULL;
+SDL_Surface* pil = NULL;
+SDL_Surface* health = NULL;
 
 SDL_Event event;
 TTF_Font *font = NULL;
@@ -18,6 +20,7 @@ TTF_Font *font2 = NULL;
 SDL_Rect balls[MAX_BALLS];
 SDL_Rect addlife[MAX_ADDLIFE];
 SDL_Rect addscore[MAX_ADDSCORE];
+SDL_Rect clear[MAX_CLEAR];
 
 SDL_Color textColor = { 0, 0, 0 };
 

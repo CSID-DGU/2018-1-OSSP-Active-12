@@ -1,4 +1,23 @@
+<<<<<<< HEAD
 1
 guest
 2
 71
+=======
+5
+guest
+4
+225
+guest
+3
+169
+guest
+3
+126
+guest
+2
+62
+guest
+2
+48
+>>>>>>> byunghyun

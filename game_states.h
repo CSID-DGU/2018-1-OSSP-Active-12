@@ -32,6 +32,7 @@ const int CLIENT_MODE = 3;
 const int WINNER = 1;
 const int LOSER = 2;
 
+extern SDL_Surface* Life;
 extern SDL_Surface *background;
 extern SDL_Surface *screen;
 extern SDL_Surface* title_message;
@@ -45,10 +46,6 @@ extern SDL_Surface* enemy_heart;
 extern SDL_Surface* dollar;
 extern SDL_Surface* pil;
 extern SDL_Surface* health;
-
-//extern Mix_Music* startBgm;
-//extern Mix_Music* playBgm;
-//extern Mix_Music* rankBgm;
 
 const SDL_Color white = {255, 255, 255};
 extern SDL_Event event;

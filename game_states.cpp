@@ -37,7 +37,7 @@ Mix_Music *PLAY;
 Mix_Music *TEST;
 Mix_Chunk *bomb;
 Mix_Chunk *drop;
-Mix_Chunk *clear;
+Mix_Chunk *clean;
 SDL_Surface* Life;
 
 void menu()
@@ -339,6 +339,8 @@ bool load_files()
 	dollar = load_image("assets/bonus.png");
 	font = TTF_OpenFont("assets/210 Macaron B.ttf", 24);
 	font2 = TTF_OpenFont("assets/210 Haneuljungwon B.ttf", 72);
+  health = load_image("assets/health.png");
+  pil = load_image("assets/pil.png");
 
 	player = SDL_LoadBMP("assets/player1.bmp");
 	player2 = SDL_LoadBMP("assets/player2.bmp");
@@ -357,7 +359,7 @@ bool load_files()
   TEST = Mix_LoadMUS("assets/test.wav");
   drop = Mix_LoadWAV("assets/test.wav");
   bomb = Mix_LoadWAV("assets/bomb.wav");
-  clear = Mix_LoadWAV("assets/clear.wav");
+  clean = Mix_LoadWAV("assets/clear.wav");
 
   /*
   START = Mix_LoadMUS("assets/start.wav");
@@ -751,7 +753,9 @@ void clean_up()
 	SDL_FreeSurface(message);
 	SDL_FreeSurface(screen);
 	SDL_FreeSurface(ball);
+  SDL_FreeSurface(health);
 	SDL_FreeSurface(dollar);
+  SDL_FreeSurface(pil);
 
   Mix_FreeMusic(START);
   Mix_FreeMusic(GameOver);
@@ -782,6 +786,7 @@ void main_game(int selector, int mode)//난이도 선택 변수
 	int current_balls = 0;
 	int current_addlife = 0;
 	int current_addscore = 0;
+  int current_clear = 0;
   int scorecheck = 0; //addlife위함
 
 	int i = 0;
@@ -802,6 +807,7 @@ void main_game(int selector, int mode)//난이도 선택 변수
 	int randomball[MAX_BALLS]; // 떨어지는 볼의 속도를 랜덤하게 조정하기 위해 선언한 배열
 	int randomadddlife[MAX_ADDLIFE];
 	int randomaddscore[MAX_ADDSCORE];
+  int randomclear[MAX_CLEAR];
 
 	if (mode == SINGLE_MODE) srand((unsigned int)time(NULL)); //in Single Mode set random ball
 
@@ -811,10 +817,13 @@ void main_game(int selector, int mode)//난이도 선택 변수
 		randomadddlife[i] = 0;
 	for (i = 0; i < MAX_ADDSCORE; i++)
 		randomaddscore[i] = 0;
+  for (i = 0; i < MAX_CLEAR; i++)
+  	randomclear[i] = 0;
 
 	init_ball();
 	init_addlife();
 	init_addscore();
+  init_clear();
 
 	while (quit == false)
 	{
@@ -829,6 +838,10 @@ void main_game(int selector, int mode)//난이도 선택 변수
 		for (i = 0; i < current_addscore; i++)
 		{
 			randomaddscore[i] = (double)rand() / RAND_MAX * (level - 1) + ADDSCORE_VELOCITY;
+		}
+    for (i = 0; i < current_clear; i++)
+		{
+			randomclear[i] = (double)rand() / RAND_MAX * (level - 1) + CLEAR_VELOCITY;
 		}
 
 
@@ -847,6 +860,10 @@ void main_game(int selector, int mode)//난이도 선택 변수
 			for (i = 0; i < current_addscore; i++)
 			{
 				addscore[i].y += randomaddscore[i];
+			}
+      for (i = 0; i < current_clear; i++)
+			{
+				clear[i].y += randomclear[i];
 			}
 		}
 		if (current_balls < MAX_BALLS)
@@ -896,6 +913,23 @@ void main_game(int selector, int mode)//난이도 선택 변수
 			}
 			current_addscore = MAX_ADDSCORE;
 		}
+    if (current_clear < MAX_CLEAR)
+		{
+			for (i = 0; i < MAX_CLEAR; i++)
+			{
+				if (clear[i].y > SCREEN_HEIGHT || clear[i].y == 0)
+				{
+					SDL_Rect new_clear;
+					new_clear.x = CLEAR_SIZE / 2 + rand() % (SCREEN_WIDTH - CLEAR_SIZE / 2);
+					new_clear.y = -(5 + rand() % 350);
+					new_clear.w = new_clear.h = CLEAR_SIZE;
+					clear[i] = new_clear;
+
+				}
+			}
+			current_clear = MAX_CLEAR;
+		}
+
 		if (SDL_PollEvent(&event))
 		{
 			if (event.type == SDL_QUIT)
@@ -957,7 +991,7 @@ void main_game(int selector, int mode)//난이도 선택 변수
 
     for (i=0; i < MAX_ADDLIFE; i++)
     {
-      apply_surface(addlife[i].x, addlife[i].y, Life, screen);
+      apply_surface(addlife[i].x, addlife[i].y, health, screen);
       if (score % 50 == 0)
       {
         current_addlife--;
@@ -969,6 +1003,14 @@ void main_game(int selector, int mode)//난이도 선택 변수
       if (score % 40 == 0)
       {
         current_addscore--;
+      }
+    }
+    for (i=0; i < MAX_CLEAR; i++)
+    {
+      apply_surface(clear[i].x, clear[i].y, pil, screen);
+      if (score % 40 == 0)
+      {
+        current_clear--;
       }
     }
 
@@ -1009,9 +1051,16 @@ void main_game(int selector, int mode)//난이도 선택 변수
       {
         Mix_PlayChannel(-1, drop, 0);
         score+=5;
-        //init_ball();
         addscore[i].x=-100;
       }
+      if (intersects(clear[i], player_rect))
+      {
+        init_ball();
+        init_addlife();
+        init_addscore();
+        clear[i].x=-100;
+      }
+
       if (intersects(balls[i], player_rect) && Die_Count == 0)
 			{
         Mix_PlayChannel(-1, bomb, 0);
@@ -1217,6 +1266,17 @@ void init_addscore()
 		new_addscore.y = -(5 + rand() % 350);
 		new_addscore.w = new_addscore.h = ADDSCORE_SIZE;
 		addscore[i] = new_addscore;
+	}
+}
+void init_clear()
+{
+	for (int i = 0; i < MAX_CLEAR; i++)
+	{
+		SDL_Rect new_clear;
+		new_clear.x = CLEAR_SIZE / 2 + rand() % (SCREEN_WIDTH - CLEAR_SIZE / 2);
+		new_clear.y = -(5 + rand() % 350);
+		new_clear.w = new_clear.h = CLEAR_SIZE;
+		clear[i] = new_clear;
 	}
 }
 

@@ -2,7 +2,6 @@
 #include <vector>
 #include <algorithm>
 #include <fstream>
-
 using namespace std;
 
 SDL_Surface* wLevel;
@@ -37,6 +36,15 @@ bool compare(Rank a, Rank b){
 }
 
 vector<Rank> rankingList;
+
+Mix_Music *START;
+Mix_Music *GameOver;
+Mix_Music *PLAY;
+Mix_Music *TEST;
+Mix_Chunk *bomb;
+Mix_Chunk *drop;
+Mix_Chunk *clean;
+SDL_Surface* Life;
 
 void menu()
 {
@@ -160,7 +168,7 @@ string write_name(string name){
       message = TTF_RenderText_Solid(font, "Write your name and press space", white);
 			apply_surface(0, 0, background, screen);
 			SDL_Flip(screen);
-			title_message = TTF_RenderText_Solid(font2, "Awesome Dodge", textColor);
+			title_message = TTF_RenderText_Solid(font2, "Active Dodge", white);
 			apply_surface((640 - title_message->w) / 2, 80, title_message, screen);
 			apply_surface((640 - message->w) / 2, 480 / 2 - message->h, message, screen);
 			SDL_Flip(screen);
@@ -598,8 +606,56 @@ if (name==""){
 	game_over(level, score, SINGLE_MODE);
 }
 
+bool load_files()
+{
+	background = load_image("assets/background.png");
+	dollar = load_image("assets/bonus.png");
+	font = TTF_OpenFont("assets/210 Macaron B.ttf", 24);
+	font2 = TTF_OpenFont("assets/210 Haneuljungwon B.ttf", 72);
+  health = load_image("assets/health.png");
+  pil = load_image("assets/pil.png");
+
+	player = SDL_LoadBMP("assets/player1.bmp");
+	player2 = SDL_LoadBMP("assets/player2.bmp");
+	ball = load_image("assets/rocket.bmp");
+	heart = SDL_LoadBMP("assets/heart.bmp");
+  Life = load_image("assets/life.png");
+	enemy_heart = SDL_LoadBMP("assets/enemy_heart.bmp");
+
+  if(Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 2048)<0) {
+    return false;
+  }
+
+  START = Mix_LoadMUS("assets/start.wav");
+  GameOver = Mix_LoadMUS("assets/game over.wav");
+  PLAY = Mix_LoadMUS("assets/play.wav");
+  TEST = Mix_LoadMUS("assets/test.wav");
+  drop = Mix_LoadWAV("assets/test.wav");
+  bomb = Mix_LoadWAV("assets/bomb.wav");
+  clean = Mix_LoadWAV("assets/clear.wav");
+
+  /*
+  START = Mix_LoadMUS("assets/start.wav");
+  GameOver = Mix_LoadMUS("assets/game over.wav");
+  PLAY = Mix_LoadMUS("assets/play.wav");
+  TEST = Mix_LoadMUS("assets/test.wav");
+*/
+	if (background == NULL)
+	{
+		return false;
+	}
+
+	if (font == NULL)
+	{
+		return false;
+	}
+
+	return true;
+}
+
 int select_mode()
 {
+  Mix_PlayMusic(START,3);
 	bool quit = false;
 	int mode = 0;
 	while (quit == false)
@@ -777,7 +833,7 @@ int socketing()
 			if (SDL_PollEvent(&event))
 			{
 				std::string str = "Server is Creating, Esc key to quit";
-				message = TTF_RenderText_Solid(font, str.c_str(), textColor);
+				message = TTF_RenderText_Solid(font, str.c_str(), white);
 				apply_surface(0, 0, background, screen);
 				apply_surface((640 - message->w) / 2, 480 / 2 - message->h, message, screen);
 
@@ -964,43 +1020,20 @@ bool init()
 	return true;
 }
 
-bool load_files()
-{
-	background = load_image("assets/background.png");
-	dollar = load_image("assets/dollar.png");
-	font = TTF_OpenFont("assets/BMDOHYEON_ttf.ttf", 24);
-	font2 = TTF_OpenFont("assets/RaphLanokFuture.otf", 48);
-
-	player = SDL_LoadBMP("assets/player1.bmp");
-	player2 = SDL_LoadBMP("assets/player2.bmp");
-	ball = load_image("assets/rocket.bmp");
-	heart = SDL_LoadBMP("assets/heart.bmp");
-	enemy_heart = SDL_LoadBMP("assets/enemy_heart.bmp");
-
-  //startBgm = Mix_LoadMUS("asserts/Title.mp3");
-  //playBgm = Mix_LoadMUS("asserts/Battle.mp3");
-  //rankBgm = Mix_LoadMUS("asserts/Raindrop_Flower.mp3");
-	if (background == NULL)
-	{
-		return false;
-	}
-
-	if (font == NULL)
-	{
-		return false;
-	}
-
-	return true;
-}
-
 void clean_up()
 {
 	SDL_FreeSurface(background);
 	SDL_FreeSurface(message);
 	SDL_FreeSurface(screen);
 	SDL_FreeSurface(ball);
+  SDL_FreeSurface(health);
 	SDL_FreeSurface(dollar);
+  SDL_FreeSurface(pil);
 
+  Mix_FreeMusic(START);
+  Mix_FreeMusic(GameOver);
+  Mix_FreeMusic(TEST);
+  Mix_FreeMusic(PLAY);
 	TTF_CloseFont(font);
 	TTF_Quit();
 
@@ -1009,6 +1042,7 @@ void clean_up()
 
 void main_game(int selector, int mode)//난이도 선택 변수
 {
+  Mix_PlayMusic(PLAY,-1);
 	using namespace std;
 	bool quit = false;
 	//client side player
@@ -1025,6 +1059,7 @@ void main_game(int selector, int mode)//난이도 선택 변수
 	int current_balls = 0;
 	int current_addlife = 0;
 	int current_addscore = 0;
+  int current_clear = 0;
   int scorecheck = 0; //addlife위함
 
 	int i = 0;
@@ -1045,6 +1080,7 @@ void main_game(int selector, int mode)//난이도 선택 변수
 	int randomball[MAX_BALLS]; // 떨어지는 볼의 속도를 랜덤하게 조정하기 위해 선언한 배열
 	int randomadddlife[MAX_ADDLIFE];
 	int randomaddscore[MAX_ADDSCORE];
+  int randomclear[MAX_CLEAR];
 
 	if (mode == SINGLE_MODE) srand((unsigned int)time(NULL)); //in Single Mode set random ball
 
@@ -1054,10 +1090,13 @@ void main_game(int selector, int mode)//난이도 선택 변수
 		randomadddlife[i] = 0;
 	for (i = 0; i < MAX_ADDSCORE; i++)
 		randomaddscore[i] = 0;
+  for (i = 0; i < MAX_CLEAR; i++)
+  	randomclear[i] = 0;
 
 	init_ball();
 	init_addlife();
 	init_addscore();
+  init_clear();
 
 	while (quit == false)
 	{
@@ -1072,6 +1111,10 @@ void main_game(int selector, int mode)//난이도 선택 변수
 		for (i = 0; i < current_addscore; i++)
 		{
 			randomaddscore[i] = (double)rand() / RAND_MAX * (level - 1) + ADDSCORE_VELOCITY;
+		}
+    for (i = 0; i < current_clear; i++)
+		{
+			randomclear[i] = (double)rand() / RAND_MAX * (level - 1) + CLEAR_VELOCITY;
 		}
 
 
@@ -1090,6 +1133,10 @@ void main_game(int selector, int mode)//난이도 선택 변수
 			for (i = 0; i < current_addscore; i++)
 			{
 				addscore[i].y += randomaddscore[i];
+			}
+      for (i = 0; i < current_clear; i++)
+			{
+				clear[i].y += randomclear[i];
 			}
 		}
 		if (current_balls < MAX_BALLS)
@@ -1139,6 +1186,23 @@ void main_game(int selector, int mode)//난이도 선택 변수
 			}
 			current_addscore = MAX_ADDSCORE;
 		}
+    if (current_clear < MAX_CLEAR)
+		{
+			for (i = 0; i < MAX_CLEAR; i++)
+			{
+				if (clear[i].y > SCREEN_HEIGHT || clear[i].y == 0)
+				{
+					SDL_Rect new_clear;
+					new_clear.x = CLEAR_SIZE / 2 + rand() % (SCREEN_WIDTH - CLEAR_SIZE / 2);
+					new_clear.y = -(5 + rand() % 350);
+					new_clear.w = new_clear.h = CLEAR_SIZE;
+					clear[i] = new_clear;
+
+				}
+			}
+			current_clear = MAX_CLEAR;
+		}
+
 		if (SDL_PollEvent(&event))
 		{
 			if (event.type == SDL_QUIT)
@@ -1200,7 +1264,7 @@ void main_game(int selector, int mode)//난이도 선택 변수
 
     for (i=0; i < MAX_ADDLIFE; i++)
     {
-      apply_surface(addlife[i].x, addlife[i].y, heart, screen);
+      apply_surface(addlife[i].x, addlife[i].y, health, screen);
       if (score % 50 == 0)
       {
         current_addlife--;
@@ -1212,6 +1276,14 @@ void main_game(int selector, int mode)//난이도 선택 변수
       if (score % 40 == 0)
       {
         current_addscore--;
+      }
+    }
+    for (i=0; i < MAX_CLEAR; i++)
+    {
+      apply_surface(clear[i].x, clear[i].y, pil, screen);
+      if (score % 40 == 0)
+      {
+        current_clear--;
       }
     }
 
@@ -1243,16 +1315,28 @@ void main_game(int selector, int mode)//난이도 선택 변수
 
       if (intersects(addlife[i], player_rect))
       {
+        Mix_PlayChannel(-1, drop, 0);
         life++;
         addlife[i].x=-100;
+
       }
       if (intersects(addscore[i], player_rect))
       {
+        Mix_PlayChannel(-1, drop, 0);
         score+=5;
         addscore[i].x=-100;
       }
+      if (intersects(clear[i], player_rect))
+      {
+        init_ball();
+        init_addlife();
+        init_addscore();
+        clear[i].x=-100;
+      }
+
       if (intersects(balls[i], player_rect) && Die_Count == 0)
 			{
+        Mix_PlayChannel(-1, bomb, 0);
 				life--;
 				if (life <= 0) //life소진시 종료
 				{
@@ -1457,9 +1541,22 @@ void init_addscore()
 		addscore[i] = new_addscore;
 	}
 }
+void init_clear()
+{
+	for (int i = 0; i < MAX_CLEAR; i++)
+	{
+		SDL_Rect new_clear;
+		new_clear.x = CLEAR_SIZE / 2 + rand() % (SCREEN_WIDTH - CLEAR_SIZE / 2);
+		new_clear.y = -(5 + rand() % 350);
+		new_clear.w = new_clear.h = CLEAR_SIZE;
+		clear[i] = new_clear;
+	}
+}
 
 void game_over(int level, int score, int state)
 {
+  Mix_PlayMusic(GameOver,-1);
+
 	std::stringstream caption;
 	std::stringstream caption2;
 	switch (state)

@@ -5,6 +5,20 @@
 
 using namespace std;
 
+SDL_Surface* wLevel;
+SDL_Surface* wName;
+SDL_Surface* wScore;
+
+SDL_Surface *L1; SDL_Surface *N1; SDL_Surface *S1; SDL_Surface *n1;
+SDL_Surface *L2; extern SDL_Surface *N2; extern SDL_Surface *S2; extern SDL_Surface *n2;
+SDL_Surface *L3; extern SDL_Surface *N3; extern SDL_Surface *S3; extern SDL_Surface *n3;
+SDL_Surface *L4; extern SDL_Surface *N4; extern SDL_Surface *S4; extern SDL_Surface *n4;
+SDL_Surface *L5; extern SDL_Surface *N5; extern SDL_Surface *S5; extern SDL_Surface *n5;
+SDL_Surface *L6; extern SDL_Surface *N6; extern SDL_Surface *S6; extern SDL_Surface *n6;
+SDL_Surface *L7; extern SDL_Surface *N7; extern SDL_Surface *S7; extern SDL_Surface *n7;
+SDL_Surface *L8; extern SDL_Surface *N8; extern SDL_Surface *S8; extern SDL_Surface *n8;
+SDL_Surface *L9; extern SDL_Surface *N9; extern SDL_Surface *S9; extern SDL_Surface *n9;
+SDL_Surface *L10; extern SDL_Surface *N10; extern SDL_Surface *S10; extern SDL_Surface *n10;
 //Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 
 class Rank{
@@ -60,27 +74,67 @@ void menu()
 	}
 }
 
-void show_rank(){
-  int size = rankingList.size();
+void show_rank(int num){
   int quit = 0;
-	int mode = 0;
-  //name="";
+  string tempN;
+  string tempL;
+  string tempS;
+  char* tName;
+  char* tLevel;
+  char* tScore;
+
 	while (quit == 0)
 	{
 		if (SDL_PollEvent(&event))
 		{
-      message = TTF_RenderText_Solid(font, "Rank List", white);
+      message = TTF_RenderText_Solid(font, "Ranking", white);
 			apply_surface(0, 0, background, screen);
+
 			SDL_Flip(screen);
-			title_message = TTF_RenderText_Solid(font2, "Active Dodge", white);
-			apply_surface((640 - title_message->w) / 2, 80, title_message, screen);
-			apply_surface((640 - message->w) / 2, 480 / 2 - message->h, message, screen);
-			SDL_Flip(screen);
+			//title_message = TTF_RenderText_Solid(font2, "Active Dodge", white);
+			//apply_surface((640 - title_message->w) / 2, 80, title_message, screen);
+			//apply_surface((640 - message->w) / 2, 480 / 2 - message->h, message, screen);
+      apply_surface((640 - message->w) / 2, 5, message, screen);
+
+      wName = TTF_RenderText_Solid(font, "Name", white);
+      wScore = TTF_RenderText_Solid(font, "Score", white);
+      wLevel = TTF_RenderText_Solid(font, "Level", white);
+
+      apply_surface(150, 480/13*2, wName, screen);
+      apply_surface(300, 480/13*2, wScore, screen);
+      apply_surface(450, 480/13*2, wLevel, screen);
+      SDL_Flip(screen);
+
+      if(num>=1){
+        n1 = TTF_RenderText_Solid(font, "1", white);
+        tempN = rankingList[0].getName();
+        //N1 = TTF_RenderText_Solid(font, tempN, white);
+        tempS = to_string(rankingList[0].getScore());
+        //S1 = TTF_RenderText_Solid(font, tempS, white);
+        tempL = to_string(rankingList[0].getLevel());
+        //L1 = TTF_RenderText_Solid(font, tempL, white);
+
+        tName = new char[tempN.size() + 1];
+        tScore = new char[tempS.size() +1];
+        tLevel = new char[tempL.size() +1];
+        copy(tempN.begin(), tempN.end(), tName);
+        copy(tempS.begin(), tempS.end(), tScore);
+        copy(tempL.begin(), tempL.end(), tLevel);
+
+        N1 = TTF_RenderText_Solid(font, tName, white);
+        S1 = TTF_RenderText_Solid(font, tScore, white);
+        L1 = TTF_RenderText_Solid(font, tLevel, white);
+
+        apply_surface( 50, 480/13*3, n1, screen);
+        apply_surface( 150, 480/13*3, N1, screen);
+        apply_surface( 300, 480/13*3, S1, screen);
+        apply_surface( 450, 480/13*3, L1, screen);
+      }
+      SDL_Flip(screen);
 			if (event.type == SDL_KEYDOWN)
 			{
 				switch (event.key.keysym.sym)
 				{
-
 				case SDLK_SPACE:
 				{
 					message = NULL;
@@ -108,7 +162,7 @@ string write_name(string name){
 	{
 		if (SDL_PollEvent(&event))
 		{
-      message = TTF_RenderText_Solid(font, "Write your name and press space", textColor);
+      message = TTF_RenderText_Solid(font, "Write your name and press space", white);
 			apply_surface(0, 0, background, screen);
 			SDL_Flip(screen);
 			title_message = TTF_RenderText_Solid(font2, "Awesome Dodge", textColor);
@@ -353,8 +407,7 @@ if (name==""){
 	num++;
   sort(rankingList.begin(), rankingList.end(), compare);
 	//랭킹 출력하는 화면 만들기
-
-sort(rankingList.begin(), rankingList.end(), compare);
+  show_rank(num+1);//랭킹의 총 개수 전달
 
 	std::ofstream rank_save;
 	rank_save.open("rank.txt");

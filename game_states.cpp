@@ -8,17 +8,17 @@ using namespace std;
 SDL_Surface* wLevel;
 SDL_Surface* wName;
 SDL_Surface* wScore;
-
+SDL_Surface* wwName;
 SDL_Surface *L1; SDL_Surface *N1; SDL_Surface *S1; SDL_Surface *n1;
-SDL_Surface *L2; extern SDL_Surface *N2; extern SDL_Surface *S2; extern SDL_Surface *n2;
-SDL_Surface *L3; extern SDL_Surface *N3; extern SDL_Surface *S3; extern SDL_Surface *n3;
-SDL_Surface *L4; extern SDL_Surface *N4; extern SDL_Surface *S4; extern SDL_Surface *n4;
-SDL_Surface *L5; extern SDL_Surface *N5; extern SDL_Surface *S5; extern SDL_Surface *n5;
-SDL_Surface *L6; extern SDL_Surface *N6; extern SDL_Surface *S6; extern SDL_Surface *n6;
-SDL_Surface *L7; extern SDL_Surface *N7; extern SDL_Surface *S7; extern SDL_Surface *n7;
-SDL_Surface *L8; extern SDL_Surface *N8; extern SDL_Surface *S8; extern SDL_Surface *n8;
-SDL_Surface *L9; extern SDL_Surface *N9; extern SDL_Surface *S9; extern SDL_Surface *n9;
-SDL_Surface *L10; extern SDL_Surface *N10; extern SDL_Surface *S10; extern SDL_Surface *n10;
+SDL_Surface *L2; SDL_Surface *N2; SDL_Surface *S2; SDL_Surface *n2;
+SDL_Surface *L3; SDL_Surface *N3; SDL_Surface *S3; SDL_Surface *n3;
+SDL_Surface *L4; SDL_Surface *N4; SDL_Surface *S4; SDL_Surface *n4;
+SDL_Surface *L5; SDL_Surface *N5; SDL_Surface *S5; SDL_Surface *n5;
+SDL_Surface *L6; SDL_Surface *N6; SDL_Surface *S6; SDL_Surface *n6;
+SDL_Surface *L7; SDL_Surface *N7; SDL_Surface *S7; SDL_Surface *n7;
+SDL_Surface *L8; SDL_Surface *N8; SDL_Surface *S8; SDL_Surface *n8;
+SDL_Surface *L9; SDL_Surface *N9; SDL_Surface *S9; SDL_Surface *n9;
+SDL_Surface *L10; SDL_Surface *N10; SDL_Surface *S10; SDL_Surface *n10;
 //Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 
 class Rank{
@@ -91,9 +91,7 @@ void show_rank(int num){
 			apply_surface(0, 0, background, screen);
 
 			SDL_Flip(screen);
-			//title_message = TTF_RenderText_Solid(font2, "Active Dodge", white);
-			//apply_surface((640 - title_message->w) / 2, 80, title_message, screen);
-			//apply_surface((640 - message->w) / 2, 480 / 2 - message->h, message, screen);
+
       apply_surface((640 - message->w) / 2, 5, message, screen);
 
       wName = TTF_RenderText_Solid(font, "Name", white);
@@ -108,15 +106,12 @@ void show_rank(int num){
       if(num>=1){
         n1 = TTF_RenderText_Solid(font, "1", white);
         tempN = rankingList[0].getName();
-        //N1 = TTF_RenderText_Solid(font, tempN, white);
         tempS = to_string(rankingList[0].getScore());
-        //S1 = TTF_RenderText_Solid(font, tempS, white);
         tempL = to_string(rankingList[0].getLevel());
-        //L1 = TTF_RenderText_Solid(font, tempL, white);
-
         tName = new char[tempN.size() + 1];
         tScore = new char[tempS.size() +1];
         tLevel = new char[tempL.size() +1];
+
         copy(tempN.begin(), tempN.end(), tName);
         copy(tempS.begin(), tempS.end(), tScore);
         copy(tempL.begin(), tempL.end(), tLevel);
@@ -129,6 +124,204 @@ void show_rank(int num){
         apply_surface( 150, 480/13*3, N1, screen);
         apply_surface( 300, 480/13*3, S1, screen);
         apply_surface( 450, 480/13*3, L1, screen);
+      }
+      if(num>=2){
+        n2 = TTF_RenderText_Solid(font, "2", white);
+        tempN = rankingList[1].getName();
+        tempS = to_string(rankingList[1].getScore());
+        tempL = to_string(rankingList[1].getLevel());
+        tName = new char[tempN.size() + 1];
+        tScore = new char[tempS.size() +1];
+        tLevel = new char[tempL.size() +1];
+
+        copy(tempN.begin(), tempN.end(), tName);
+        copy(tempS.begin(), tempS.end(), tScore);
+        copy(tempL.begin(), tempL.end(), tLevel);
+
+        N2 = TTF_RenderText_Solid(font, tName, white);
+        S2 = TTF_RenderText_Solid(font, tScore, white);
+        L2 = TTF_RenderText_Solid(font, tLevel, white);
+
+        apply_surface( 50, 480/13*4, n2, screen);
+        apply_surface( 150, 480/13*4, N2, screen);
+        apply_surface( 300, 480/13*4, S2, screen);
+        apply_surface( 450, 480/13*4, L2, screen);
+      }
+      if(num>=3){
+        n3 = TTF_RenderText_Solid(font, "3", white);
+        tempN = rankingList[2].getName();
+        tempS = to_string(rankingList[2].getScore());
+        tempL = to_string(rankingList[2].getLevel());
+        tName = new char[tempN.size() + 1];
+        tScore = new char[tempS.size() +1];
+        tLevel = new char[tempL.size() +1];
+
+        copy(tempN.begin(), tempN.end(), tName);
+        copy(tempS.begin(), tempS.end(), tScore);
+        copy(tempL.begin(), tempL.end(), tLevel);
+
+        N3 = TTF_RenderText_Solid(font, tName, white);
+        S3 = TTF_RenderText_Solid(font, tScore, white);
+        L3 = TTF_RenderText_Solid(font, tLevel, white);
+
+        apply_surface( 50, 480/13*5, n3, screen);
+        apply_surface( 150, 480/13*5, N3, screen);
+        apply_surface( 300, 480/13*5, S3, screen);
+        apply_surface( 450, 480/13*5, L3, screen);
+      }
+      if(num>=4){
+        n4 = TTF_RenderText_Solid(font, "4", white);
+        tempN = rankingList[3].getName();
+        tempS = to_string(rankingList[3].getScore());
+        tempL = to_string(rankingList[3].getLevel());
+        tName = new char[tempN.size() + 1];
+        tScore = new char[tempS.size() +1];
+        tLevel = new char[tempL.size() +1];
+
+        copy(tempN.begin(), tempN.end(), tName);
+        copy(tempS.begin(), tempS.end(), tScore);
+        copy(tempL.begin(), tempL.end(), tLevel);
+
+        N4 = TTF_RenderText_Solid(font, tName, white);
+        S4 = TTF_RenderText_Solid(font, tScore, white);
+        L4 = TTF_RenderText_Solid(font, tLevel, white);
+
+        apply_surface( 50, 480/13*6, n4, screen);
+        apply_surface( 150, 480/13*6, N4, screen);
+        apply_surface( 300, 480/13*6, S4, screen);
+        apply_surface( 450, 480/13*6, L4, screen);
+      }
+      if(num>=5){
+        n5 = TTF_RenderText_Solid(font, "5", white);
+        tempN = rankingList[4].getName();
+        tempS = to_string(rankingList[4].getScore());
+        tempL = to_string(rankingList[4].getLevel());
+        tName = new char[tempN.size() + 1];
+        tScore = new char[tempS.size() +1];
+        tLevel = new char[tempL.size() +1];
+
+        copy(tempN.begin(), tempN.end(), tName);
+        copy(tempS.begin(), tempS.end(), tScore);
+        copy(tempL.begin(), tempL.end(), tLevel);
+
+        N5 = TTF_RenderText_Solid(font, tName, white);
+        S5 = TTF_RenderText_Solid(font, tScore, white);
+        L5 = TTF_RenderText_Solid(font, tLevel, white);
+
+        apply_surface( 50, 480/13*7, n5, screen);
+        apply_surface( 150, 480/13*7, N5, screen);
+        apply_surface( 300, 480/13*7, S5, screen);
+        apply_surface( 450, 480/13*7, L5, screen);
+      }
+      if(num>=6){
+        n6 = TTF_RenderText_Solid(font, "6", white);
+        tempN = rankingList[5].getName();
+        tempS = to_string(rankingList[5].getScore());
+        tempL = to_string(rankingList[5].getLevel());
+        tName = new char[tempN.size() + 1];
+        tScore = new char[tempS.size() +1];
+        tLevel = new char[tempL.size() +1];
+
+        copy(tempN.begin(), tempN.end(), tName);
+        copy(tempS.begin(), tempS.end(), tScore);
+        copy(tempL.begin(), tempL.end(), tLevel);
+
+        N6 = TTF_RenderText_Solid(font, tName, white);
+        S6 = TTF_RenderText_Solid(font, tScore, white);
+        L6 = TTF_RenderText_Solid(font, tLevel, white);
+
+        apply_surface( 50, 480/13*8, n6, screen);
+        apply_surface( 150, 480/13*8, N6, screen);
+        apply_surface( 300, 480/13*8, S6, screen);
+        apply_surface( 450, 480/13*8, L6, screen);
+      }
+      if(num>=7){
+        n7 = TTF_RenderText_Solid(font, "7", white);
+        tempN = rankingList[6].getName();
+        tempS = to_string(rankingList[6].getScore());
+        tempL = to_string(rankingList[6].getLevel());
+        tName = new char[tempN.size() + 1];
+        tScore = new char[tempS.size() +1];
+        tLevel = new char[tempL.size() +1];
+
+        copy(tempN.begin(), tempN.end(), tName);
+        copy(tempS.begin(), tempS.end(), tScore);
+        copy(tempL.begin(), tempL.end(), tLevel);
+
+        N7 = TTF_RenderText_Solid(font, tName, white);
+        S7 = TTF_RenderText_Solid(font, tScore, white);
+        L7 = TTF_RenderText_Solid(font, tLevel, white);
+
+        apply_surface( 50, 480/13*9, n7, screen);
+        apply_surface( 150, 480/13*9, N7, screen);
+        apply_surface( 300, 480/13*9, S7, screen);
+        apply_surface( 450, 480/13*9, L7, screen);
+      }
+      if(num>=8){
+        n8 = TTF_RenderText_Solid(font, "8", white);
+        tempN = rankingList[7].getName();
+        tempS = to_string(rankingList[7].getScore());
+        tempL = to_string(rankingList[7].getLevel());
+        tName = new char[tempN.size() + 1];
+        tScore = new char[tempS.size() +1];
+        tLevel = new char[tempL.size() +1];
+
+        copy(tempN.begin(), tempN.end(), tName);
+        copy(tempS.begin(), tempS.end(), tScore);
+        copy(tempL.begin(), tempL.end(), tLevel);
+
+        N8 = TTF_RenderText_Solid(font, tName, white);
+        S8 = TTF_RenderText_Solid(font, tScore, white);
+        L8 = TTF_RenderText_Solid(font, tLevel, white);
+
+        apply_surface( 50, 480/13*10, n8, screen);
+        apply_surface( 150, 480/13*10, N8, screen);
+        apply_surface( 300, 480/13*10, S8, screen);
+        apply_surface( 450, 480/13*10, L8, screen);
+      }
+      if(num>=9){
+        n9 = TTF_RenderText_Solid(font, "9", white);
+        tempN = rankingList[8].getName();
+        tempS = to_string(rankingList[8].getScore());
+        tempL = to_string(rankingList[8].getLevel());
+        tName = new char[tempN.size() + 1];
+        tScore = new char[tempS.size() +1];
+        tLevel = new char[tempL.size() +1];
+
+        copy(tempN.begin(), tempN.end(), tName);
+        copy(tempS.begin(), tempS.end(), tScore);
+        copy(tempL.begin(), tempL.end(), tLevel);
+
+        N9 = TTF_RenderText_Solid(font, tName, white);
+        S9 = TTF_RenderText_Solid(font, tScore, white);
+        L9 = TTF_RenderText_Solid(font, tLevel, white);
+
+        apply_surface( 50, 480/13*11, n9, screen);
+        apply_surface( 150, 480/13*11, N9, screen);
+        apply_surface( 300, 480/13*11, S9, screen);
+        apply_surface( 450, 480/13*11, L9, screen);
+      }
+      if(num>=10){
+        n10 = TTF_RenderText_Solid(font, "10", white);
+        tempN = rankingList[9].getName();
+        tempS = to_string(rankingList[9].getScore());
+        tempL = to_string(rankingList[9].getLevel());
+        tName = new char[tempN.size() + 1];
+        tScore = new char[tempS.size() +1];
+        tLevel = new char[tempL.size() +1];
+
+        copy(tempN.begin(), tempN.end(), tName);
+        copy(tempS.begin(), tempS.end(), tScore);
+        copy(tempL.begin(), tempL.end(), tLevel);
+
+        N10 = TTF_RenderText_Solid(font, tName, white);
+        S10 = TTF_RenderText_Solid(font, tScore, white);
+        L10 = TTF_RenderText_Solid(font, tLevel, white);
+
+        apply_surface( 50, 480/13*12, n10, screen);
+        apply_surface( 150, 480/13*12, N10, screen);
+        apply_surface( 300, 480/13*12, S10, screen);
+        apply_surface( 450, 480/13*12, L10, screen);
       }
       SDL_Flip(screen);
 			if (event.type == SDL_KEYDOWN)
@@ -152,11 +345,13 @@ void show_rank(int num){
 			}
 		}
 	}
+  return;
 }
 
 string write_name(string name){
   int quit = 0;
 	int mode = 0;
+  char* tempName;
   name="";
 	while (quit == 0)
 	{
@@ -176,180 +371,361 @@ string write_name(string name){
           case SDLK_0:
           {
             name+="0";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_1:
           {
             name+="1";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_2:
           {
             name+="2";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_3:
           {
             name+="3";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_4:
           {
             name+="4";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_5:
           {
             name+="5";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_6:
           {
             name+="6";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_7:
           {
             name+="7";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_8:
           {
             name+="8";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_9:
           {
             name+="9";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_a:
           {
             name+="a";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_b:
           {
             name+="b";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_c:
           {
             name+="c";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_d:
           {
             name+="d";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_e:
           {
             name+="e";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_f:
           {
             name+="f";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_g:
           {
             name+="g";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_h:
           {
             name+="h";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_i:
           {
             name+="i";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
-          }case SDLK_j:
+          }
+          case SDLK_j:
           {
             name+="j";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_k:
           {
             name+="k";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_l:
           {
             name+="l";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_m:
           {
             name+="m";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_n:
           {
             name+="n";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_o:
           {
             name+="o";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_p:
           {
             name+="p";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_q:
           {
             name+="q";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_r:
           {
             name+="r";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_s:
           {
             name+="s";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_t:
           {
             name+="t";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_u:
           {
             name+="u";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_v:
           {
             name+="v";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_w:
           {
             name+="w";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_x:
           {
             name+="x";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_y:
           {
             name+="y";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
           case SDLK_z:
           {
             name+="z";
+            tempName = new char[name.size()+1];
+            copy(name.begin(), name.end(), tempName);
+            wwName= TTF_RenderText_Solid(font, tempName, white);
+            apply_surface(200, 480/2 + 50, wwName, screen);
+      			SDL_Flip(screen);
             break;
           }
 				case SDLK_SPACE:

@@ -10,16 +10,6 @@ SDL_Surface* wName;
 SDL_Surface* wScore;
 SDL_Surface* wwName;
 SDL_Surface *L1; SDL_Surface *N1; SDL_Surface *S1; SDL_Surface *n1;
-SDL_Surface *L2; SDL_Surface *N2; SDL_Surface *S2; SDL_Surface *n2;
-SDL_Surface *L3; SDL_Surface *N3; SDL_Surface *S3; SDL_Surface *n3;
-SDL_Surface *L4; SDL_Surface *N4; SDL_Surface *S4; SDL_Surface *n4;
-SDL_Surface *L5; SDL_Surface *N5; SDL_Surface *S5; SDL_Surface *n5;
-SDL_Surface *L6; SDL_Surface *N6; SDL_Surface *S6; SDL_Surface *n6;
-SDL_Surface *L7; SDL_Surface *N7; SDL_Surface *S7; SDL_Surface *n7;
-SDL_Surface *L8; SDL_Surface *N8; SDL_Surface *S8; SDL_Surface *n8;
-SDL_Surface *L9; SDL_Surface *N9; SDL_Surface *S9; SDL_Surface *n9;
-SDL_Surface *L10; SDL_Surface *N10; SDL_Surface *S10; SDL_Surface *n10;
-//Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 
 class Rank{
   string user_name;
@@ -74,8 +64,9 @@ void menu()
 	}
 }
 
-void show_rank(int num){
+int show_rank(int num){
   int quit = 0;
+  int n = num;
   string tempN;
   string tempL;
   string tempS;
@@ -99,231 +90,37 @@ void show_rank(int num){
       wLevel = TTF_RenderText_Solid(font, "Level", white);
 
       apply_surface(150, 480/13*2, wName, screen);
-      apply_surface(300, 480/13*2, wScore, screen);
-      apply_surface(450, 480/13*2, wLevel, screen);
+      apply_surface(400, 480/13*2, wScore, screen);
+      apply_surface(550, 480/13*2, wLevel, screen);
       SDL_Flip(screen);
 
-      if(num>=1){
-        n1 = TTF_RenderText_Solid(font, "1", white);
-        tempN = rankingList[0].getName();
-        tempS = to_string(rankingList[0].getScore());
-        tempL = to_string(rankingList[0].getLevel());
-        tName = new char[tempN.size() + 1];
-        tScore = new char[tempS.size() +1];
-        tLevel = new char[tempL.size() +1];
+      if (n > 10) n = 10;
 
-        copy(tempN.begin(), tempN.end(), tName);
-        copy(tempS.begin(), tempS.end(), tScore);
-        copy(tempL.begin(), tempL.end(), tLevel);
+      for(int i=1; i<=n; i++){
+        string s = to_string(i);
+        char const *pchar = s.c_str();
+        n1 = TTF_RenderText_Solid(font, pchar, white);
 
-        N1 = TTF_RenderText_Solid(font, tName, white);
-        S1 = TTF_RenderText_Solid(font, tScore, white);
-        L1 = TTF_RenderText_Solid(font, tLevel, white);
+        tempN = rankingList[i-1].getName();
+        tempS = to_string(rankingList[i-1].getScore());
+        tempL = to_string(rankingList[i-1].getLevel());
 
-        apply_surface( 50, 480/13*3, n1, screen);
-        apply_surface( 150, 480/13*3, N1, screen);
-        apply_surface( 300, 480/13*3, S1, screen);
-        apply_surface( 450, 480/13*3, L1, screen);
+        char const *ttN = tempN.c_str();
+        char const *ttS = tempS.c_str();
+        char const *ttL = tempL.c_str();
+
+        N1 = TTF_RenderText_Solid(font, ttN, white);
+        S1 = TTF_RenderText_Solid(font, ttS, white);
+        L1 = TTF_RenderText_Solid(font, ttL, white);
+
+        apply_surface( 50, 480/13*(i+2), n1, screen);
+        apply_surface( 150, 480/13*(i+2), N1, screen);
+        apply_surface( 400, 480/13*(i+2), S1, screen);
+        apply_surface( 550, 480/13*(i+2), L1, screen);
       }
-      if(num>=2){
-        n2 = TTF_RenderText_Solid(font, "2", white);
-        tempN = rankingList[1].getName();
-        tempS = to_string(rankingList[1].getScore());
-        tempL = to_string(rankingList[1].getLevel());
-        tName = new char[tempN.size() + 1];
-        tScore = new char[tempS.size() +1];
-        tLevel = new char[tempL.size() +1];
 
-        copy(tempN.begin(), tempN.end(), tName);
-        copy(tempS.begin(), tempS.end(), tScore);
-        copy(tempL.begin(), tempL.end(), tLevel);
-
-        N2 = TTF_RenderText_Solid(font, tName, white);
-        S2 = TTF_RenderText_Solid(font, tScore, white);
-        L2 = TTF_RenderText_Solid(font, tLevel, white);
-
-        apply_surface( 50, 480/13*4, n2, screen);
-        apply_surface( 150, 480/13*4, N2, screen);
-        apply_surface( 300, 480/13*4, S2, screen);
-        apply_surface( 450, 480/13*4, L2, screen);
-      }
-      if(num>=3){
-        n3 = TTF_RenderText_Solid(font, "3", white);
-        tempN = rankingList[2].getName();
-        tempS = to_string(rankingList[2].getScore());
-        tempL = to_string(rankingList[2].getLevel());
-        tName = new char[tempN.size() + 1];
-        tScore = new char[tempS.size() +1];
-        tLevel = new char[tempL.size() +1];
-
-        copy(tempN.begin(), tempN.end(), tName);
-        copy(tempS.begin(), tempS.end(), tScore);
-        copy(tempL.begin(), tempL.end(), tLevel);
-
-        N3 = TTF_RenderText_Solid(font, tName, white);
-        S3 = TTF_RenderText_Solid(font, tScore, white);
-        L3 = TTF_RenderText_Solid(font, tLevel, white);
-
-        apply_surface( 50, 480/13*5, n3, screen);
-        apply_surface( 150, 480/13*5, N3, screen);
-        apply_surface( 300, 480/13*5, S3, screen);
-        apply_surface( 450, 480/13*5, L3, screen);
-      }
-      if(num>=4){
-        n4 = TTF_RenderText_Solid(font, "4", white);
-        tempN = rankingList[3].getName();
-        tempS = to_string(rankingList[3].getScore());
-        tempL = to_string(rankingList[3].getLevel());
-        tName = new char[tempN.size() + 1];
-        tScore = new char[tempS.size() +1];
-        tLevel = new char[tempL.size() +1];
-
-        copy(tempN.begin(), tempN.end(), tName);
-        copy(tempS.begin(), tempS.end(), tScore);
-        copy(tempL.begin(), tempL.end(), tLevel);
-
-        N4 = TTF_RenderText_Solid(font, tName, white);
-        S4 = TTF_RenderText_Solid(font, tScore, white);
-        L4 = TTF_RenderText_Solid(font, tLevel, white);
-
-        apply_surface( 50, 480/13*6, n4, screen);
-        apply_surface( 150, 480/13*6, N4, screen);
-        apply_surface( 300, 480/13*6, S4, screen);
-        apply_surface( 450, 480/13*6, L4, screen);
-      }
-      if(num>=5){
-        n5 = TTF_RenderText_Solid(font, "5", white);
-        tempN = rankingList[4].getName();
-        tempS = to_string(rankingList[4].getScore());
-        tempL = to_string(rankingList[4].getLevel());
-        tName = new char[tempN.size() + 1];
-        tScore = new char[tempS.size() +1];
-        tLevel = new char[tempL.size() +1];
-
-        copy(tempN.begin(), tempN.end(), tName);
-        copy(tempS.begin(), tempS.end(), tScore);
-        copy(tempL.begin(), tempL.end(), tLevel);
-
-        N5 = TTF_RenderText_Solid(font, tName, white);
-        S5 = TTF_RenderText_Solid(font, tScore, white);
-        L5 = TTF_RenderText_Solid(font, tLevel, white);
-
-        apply_surface( 50, 480/13*7, n5, screen);
-        apply_surface( 150, 480/13*7, N5, screen);
-        apply_surface( 300, 480/13*7, S5, screen);
-        apply_surface( 450, 480/13*7, L5, screen);
-      }
-      if(num>=6){
-        n6 = TTF_RenderText_Solid(font, "6", white);
-        tempN = rankingList[5].getName();
-        tempS = to_string(rankingList[5].getScore());
-        tempL = to_string(rankingList[5].getLevel());
-        tName = new char[tempN.size() + 1];
-        tScore = new char[tempS.size() +1];
-        tLevel = new char[tempL.size() +1];
-
-        copy(tempN.begin(), tempN.end(), tName);
-        copy(tempS.begin(), tempS.end(), tScore);
-        copy(tempL.begin(), tempL.end(), tLevel);
-
-        N6 = TTF_RenderText_Solid(font, tName, white);
-        S6 = TTF_RenderText_Solid(font, tScore, white);
-        L6 = TTF_RenderText_Solid(font, tLevel, white);
-
-        apply_surface( 50, 480/13*8, n6, screen);
-        apply_surface( 150, 480/13*8, N6, screen);
-        apply_surface( 300, 480/13*8, S6, screen);
-        apply_surface( 450, 480/13*8, L6, screen);
-      }
-      if(num>=7){
-        n7 = TTF_RenderText_Solid(font, "7", white);
-        tempN = rankingList[6].getName();
-        tempS = to_string(rankingList[6].getScore());
-        tempL = to_string(rankingList[6].getLevel());
-        tName = new char[tempN.size() + 1];
-        tScore = new char[tempS.size() +1];
-        tLevel = new char[tempL.size() +1];
-
-        copy(tempN.begin(), tempN.end(), tName);
-        copy(tempS.begin(), tempS.end(), tScore);
-        copy(tempL.begin(), tempL.end(), tLevel);
-
-        N7 = TTF_RenderText_Solid(font, tName, white);
-        S7 = TTF_RenderText_Solid(font, tScore, white);
-        L7 = TTF_RenderText_Solid(font, tLevel, white);
-
-        apply_surface( 50, 480/13*9, n7, screen);
-        apply_surface( 150, 480/13*9, N7, screen);
-        apply_surface( 300, 480/13*9, S7, screen);
-        apply_surface( 450, 480/13*9, L7, screen);
-      }
-      if(num>=8){
-        n8 = TTF_RenderText_Solid(font, "8", white);
-        tempN = rankingList[7].getName();
-        tempS = to_string(rankingList[7].getScore());
-        tempL = to_string(rankingList[7].getLevel());
-        tName = new char[tempN.size() + 1];
-        tScore = new char[tempS.size() +1];
-        tLevel = new char[tempL.size() +1];
-
-        copy(tempN.begin(), tempN.end(), tName);
-        copy(tempS.begin(), tempS.end(), tScore);
-        copy(tempL.begin(), tempL.end(), tLevel);
-
-        N8 = TTF_RenderText_Solid(font, tName, white);
-        S8 = TTF_RenderText_Solid(font, tScore, white);
-        L8 = TTF_RenderText_Solid(font, tLevel, white);
-
-        apply_surface( 50, 480/13*10, n8, screen);
-        apply_surface( 150, 480/13*10, N8, screen);
-        apply_surface( 300, 480/13*10, S8, screen);
-        apply_surface( 450, 480/13*10, L8, screen);
-      }
-      if(num>=9){
-        n9 = TTF_RenderText_Solid(font, "9", white);
-        tempN = rankingList[8].getName();
-        tempS = to_string(rankingList[8].getScore());
-        tempL = to_string(rankingList[8].getLevel());
-        tName = new char[tempN.size() + 1];
-        tScore = new char[tempS.size() +1];
-        tLevel = new char[tempL.size() +1];
-
-        copy(tempN.begin(), tempN.end(), tName);
-        copy(tempS.begin(), tempS.end(), tScore);
-        copy(tempL.begin(), tempL.end(), tLevel);
-
-        N9 = TTF_RenderText_Solid(font, tName, white);
-        S9 = TTF_RenderText_Solid(font, tScore, white);
-        L9 = TTF_RenderText_Solid(font, tLevel, white);
-
-        apply_surface( 50, 480/13*11, n9, screen);
-        apply_surface( 150, 480/13*11, N9, screen);
-        apply_surface( 300, 480/13*11, S9, screen);
-        apply_surface( 450, 480/13*11, L9, screen);
-      }
-      if(num>=10){
-        n10 = TTF_RenderText_Solid(font, "10", white);
-        tempN = rankingList[9].getName();
-        tempS = to_string(rankingList[9].getScore());
-        tempL = to_string(rankingList[9].getLevel());
-        tName = new char[tempN.size() + 1];
-        tScore = new char[tempS.size() +1];
-        tLevel = new char[tempL.size() +1];
-
-        copy(tempN.begin(), tempN.end(), tName);
-        copy(tempS.begin(), tempS.end(), tScore);
-        copy(tempL.begin(), tempL.end(), tLevel);
-
-        N10 = TTF_RenderText_Solid(font, tName, white);
-        S10 = TTF_RenderText_Solid(font, tScore, white);
-        L10 = TTF_RenderText_Solid(font, tLevel, white);
-
-        apply_surface( 50, 480/13*12, n10, screen);
-        apply_surface( 150, 480/13*12, N10, screen);
-        apply_surface( 300, 480/13*12, S10, screen);
-        apply_surface( 450, 480/13*12, L10, screen);
-      }
       SDL_Flip(screen);
+
 			if (event.type == SDL_KEYDOWN)
 			{
 				switch (event.key.keysym.sym)
@@ -331,9 +128,11 @@ void show_rank(int num){
 				case SDLK_SPACE:
 				{
 					message = NULL;
+          return 0;
 					break;
 				}
 				case SDLK_ESCAPE://esc 키가 눌리면 종료
+        return 0;
 					break;
 				default:
 					break;
@@ -341,11 +140,12 @@ void show_rank(int num){
 			}
 			else if (event.type == SDL_QUIT)
 			{
+        return 0;
 				quit = 1;
 			}
 		}
 	}
-  return;
+  return 0;
 }
 
 string write_name(string name){
@@ -783,7 +583,7 @@ if (name==""){
 	num++;
   sort(rankingList.begin(), rankingList.end(), compare);
 	//랭킹 출력하는 화면 만들기
-  show_rank(num+1);//랭킹의 총 개수 전달
+  int fflag = show_rank(num+1);//랭킹의 총 개수 전달
 
 	std::ofstream rank_save;
 	rank_save.open("rank.txt");

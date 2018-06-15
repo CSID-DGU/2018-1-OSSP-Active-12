@@ -74,7 +74,7 @@ int select_level();
 void waiting(bool **isConnect);
 int socketing();
 void waitClient(bool **isConnect);
-void show_rank();
+int show_rank(int num);
 //socket variable
 static const int bufsize = 16;
 static const char ip[20] = "127.0.0.1";

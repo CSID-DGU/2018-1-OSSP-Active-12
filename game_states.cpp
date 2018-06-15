@@ -562,14 +562,15 @@ string write_name(string name){
 void ranking(int level, int score, int state){
 string t_name;
 string name;
-name = write_name(t_name);
-	//플레이어 닉네임 넣는 창 추후에 구현
+name = write_name(t_name);//플레이어의 닉네임 넣는 창
+
 if (name==""){
-  name="guest";
+  name="guest";//이름 입력 안 할 경우 guest로 자동 지정
 }
 	Rank temp(name, level, score);
-  rankingList.push_back(temp);
-	string p_name;
+  rankingList.push_back(temp);//이번에 플레이한 정보 넣는다
+
+  string p_name;
 	int p_level;
 	int p_score;
 	int num;//몇 명의 정보를 불러와야 하는지
@@ -589,9 +590,10 @@ if (name==""){
 }
 	rank_in.close();
 	num++;
+
   sort(rankingList.begin(), rankingList.end(), compare);
-	//랭킹 출력하는 화면 만들기
-  int fflag = show_rank(num+1);//랭킹의 총 개수 전달
+
+  int fflag = show_rank(num);//랭킹 출력. 랭킹의 총 개수 전달
 
 	std::ofstream rank_save;
 	rank_save.open("rank.txt");
@@ -634,12 +636,6 @@ bool load_files()
   bomb = Mix_LoadWAV("assets/bomb.wav");
   clean = Mix_LoadWAV("assets/clear.wav");
 
-  /*
-  START = Mix_LoadMUS("assets/start.wav");
-  GameOver = Mix_LoadMUS("assets/game over.wav");
-  PLAY = Mix_LoadMUS("assets/play.wav");
-  TEST = Mix_LoadMUS("assets/test.wav");
-*/
 	if (background == NULL)
 	{
 		return false;
@@ -1264,7 +1260,7 @@ void main_game(int selector, int mode)//난이도 선택 변수
 
     for (i=0; i < MAX_ADDLIFE; i++)
     {
-      apply_surface(addlife[i].x, addlife[i].y, health, screen);
+      apply_surface(addlife[i].x, addlife[i].y, Life, screen);
       if (score % 50 == 0)
       {
         current_addlife--;
@@ -1329,6 +1325,7 @@ void main_game(int selector, int mode)//난이도 선택 변수
       }
       if (intersects(clear[i], player_rect))
       {
+        Mix_PlayChannel(-1, clean, 0);
         init_ball();
         init_addlife();
         init_addscore();

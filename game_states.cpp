@@ -634,12 +634,6 @@ bool load_files()
   bomb = Mix_LoadWAV("assets/bomb.wav");
   clean = Mix_LoadWAV("assets/clear.wav");
 
-  /*
-  START = Mix_LoadMUS("assets/start.wav");
-  GameOver = Mix_LoadMUS("assets/game over.wav");
-  PLAY = Mix_LoadMUS("assets/play.wav");
-  TEST = Mix_LoadMUS("assets/test.wav");
-*/
 	if (background == NULL)
 	{
 		return false;
@@ -1264,7 +1258,7 @@ void main_game(int selector, int mode)//난이도 선택 변수
 
     for (i=0; i < MAX_ADDLIFE; i++)
     {
-      apply_surface(addlife[i].x, addlife[i].y, health, screen);
+      apply_surface(addlife[i].x, addlife[i].y, Life, screen);
       if (score % 50 == 0)
       {
         current_addlife--;
@@ -1328,6 +1322,7 @@ void main_game(int selector, int mode)//난이도 선택 변수
       }
       if (intersects(clear[i], player_rect))
       {
+        Mix_PlayChannel(-1, clean, 0);
         init_ball();
         init_addlife();
         init_addscore();

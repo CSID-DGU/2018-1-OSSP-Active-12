@@ -1043,7 +1043,8 @@ void main_game(int selector, int mode)//난이도 선택 변수
       if (intersects(addlife[i], player_rect))
       {
         Mix_PlayChannel(-1, drop, 0);
-        life++;
+        if(life<=4){
+        life++;}
         addlife[i].x=-100;
 
       }

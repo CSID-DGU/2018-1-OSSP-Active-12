@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2
 lkjsdf
 2
@@ -5,3 +6,6 @@ lkjsdf
 skdfjskhfdj
 2
 79
+=======
+0
+>>>>>>> c9451fcfd1ffc7e222fc901d7aa35e03ef7c7307

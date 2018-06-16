@@ -590,7 +590,7 @@ if (name==""){
 	rank_in.close();
 	num++;
   sort(rankingList.begin(), rankingList.end(), compare);
-	
+
   int fflag = show_rank(num);//랭킹 출력하는 화면. 랭킹의 총 개수 전달
 
 	std::ofstream rank_save;

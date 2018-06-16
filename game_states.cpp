@@ -36,6 +36,7 @@ bool compare(Rank a, Rank b){
 }
 
 vector<Rank> rankingList;
+vector<Rank> printRanking;
 
 Mix_Music *START;
 Mix_Music *GameOver;
@@ -82,6 +83,9 @@ int show_rank(int num){
   char* tLevel;
   char* tScore;
 
+ printRanking.clear();
+ printRanking.assign(rankingList.begin(), rankingList.end());
+
 	while (quit == 0)
 	{
 		if (SDL_PollEvent(&event))
@@ -109,9 +113,9 @@ int show_rank(int num){
         char const *pchar = s.c_str();
         n1 = TTF_RenderText_Solid(font, pchar, white);
 
-        tempN = rankingList[i-1].getName();
-        tempS = to_string(rankingList[i-1].getScore());
-        tempL = to_string(rankingList[i-1].getLevel());
+        tempN = printRanking[i-1].getName();
+        tempS = to_string(printRanking[i-1].getScore());
+        tempL = to_string(printRanking[i-1].getLevel());
 
         char const *ttN = tempN.c_str();
         char const *ttS = tempS.c_str();
@@ -591,16 +595,18 @@ if (name==""){
 	num++;
   sort(rankingList.begin(), rankingList.end(), compare);
 	//랭킹 출력하는 화면 만들기
-  int fflag = show_rank(num+1);//랭킹의 총 개수 전달
+  int fflag = show_rank(num);//랭킹의 총 개수 전달
 
 	std::ofstream rank_save;
 	rank_save.open("rank.txt");
 	rank_save<<num<<endl;
+
 	for(int i=0;i<num;i++){
 		rank_save<<rankingList[i].getName()<<endl;
 		rank_save<<rankingList[i].getLevel()<<endl;
 		rank_save<<rankingList[i].getScore()<<endl;
 	}
+
 	rank_save.close();
 
 	game_over(level, score, SINGLE_MODE);

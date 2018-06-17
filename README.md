@@ -1,21 +1,25 @@
-# 2017-2-OSSP-Awesome-1
+# 2018-1-OSSP-Active-12
 
 ## README
 
-- 기존 오픈소스 : https://github.com/khodzha/square-dodge
+- 기존 오픈소스 : https://github.com/CSID-DGU/2017-2-OSSP-Awesome-1
 
-## 라인 수 및 파일 개수
+## 개발환경
 
-- 기존 라인 수 : 약 300줄, 확장된 라인 수 : 약 1000줄
-- 파일 개수 5개 변동 없음
-- game_state.cpp에 함수를 추가하는 방식으로 소스코드 확장
+- Linux
 
-## 유의사항
+- Atom Editor
 
-- game_state.h에 ip를 각 PC의 ip로 넣어서 make 해야 듀얼 플레이 가능
-- 가상 머신으로 돌릴 경우 가상 머신의 ip를 넣어야 함
+- SDL Library
+
+## 게임설명
+
+- 위아래좌우로 움직이며 장애물을 피하는 게임
+
+- 레벨에 따라서 속도가 더 빨라져 장애물 피하기가 어려워짐
+
+- 아이템 습득시 그에따른 기능 실현
 
 ## 동영상
 
-- 기존 소스 프로그램 영상 : https://youtu.be/ZOq-FuQx2Zg
-- 확장 소스 프로그램 영상 : https://youtu.be/ufeNuZz0AFw
+- 

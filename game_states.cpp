@@ -61,7 +61,7 @@ void menu()
 			break;
 		case SINGLE_MODE:
 			init();
-			main_game(1, SINGLE_MODE);
+			main_game(0, SINGLE_MODE);
 			mode = select_level();
 			break;
 		case MULTI_MODE:
@@ -601,12 +601,18 @@ if (name==""){
 
   sort(rankingList.begin(), rankingList.end(), compare);
 <<<<<<< HEAD
+<<<<<<< HEAD
 
   int fflag = show_rank(num);//랭킹 출력. 랭킹의 총 개수 전달
 =======
 	//랭킹 출력하는 화면 만들기
   int fflag = show_rank(num);//랭킹의 총 개수 전달
 >>>>>>> e64a9827a97e70a50ea2fd94fdafe8d6f8eefe61
+=======
+
+  int fflag = show_rank(num);//랭킹 출력. 랭킹의 총 개수 전달
+	//랭킹 출력하는 화면 만들기
+>>>>>>> byunghyun
 
 	std::ofstream rank_save;
 	rank_save.open("rank.txt");
@@ -1327,7 +1333,8 @@ void main_game(int selector, int mode)//난이도 선택 변수
       if (intersects(addlife[i], player_rect))
       {
         Mix_PlayChannel(-1, drop, 0);
-        life++;
+        if(life<=4){
+        life++;}
         addlife[i].x=-100;
 
       }

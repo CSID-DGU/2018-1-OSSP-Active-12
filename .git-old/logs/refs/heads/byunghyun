@@ -1,0 +1,15 @@
+0000000000000000000000000000000000000000 edeff66fa60445ef81b680152a67da73da7f45db byung hyun <loversugar@hanmail.net> 1527478699 +0900	branch: Created from HEAD
+edeff66fa60445ef81b680152a67da73da7f45db 5f8ae9778d2d47fa2f0da724da78b0878ce0c6b4 byung hyun <loversugar@hanmail.net> 1527478806 +0900	commit: life
+5f8ae9778d2d47fa2f0da724da78b0878ce0c6b4 2aedc87a5ffdeae13d2359e25a9a42a2d4245630 byung hyun <loversugar@hanmail.net> 1527497554 +0900	commit: item
+2aedc87a5ffdeae13d2359e25a9a42a2d4245630 fcef9101232878f8dbe33794b75746d22c413867 byung hyun <loversugar@hanmail.net> 1527574142 +0900	merge origin/master: Fast-forward
+fcef9101232878f8dbe33794b75746d22c413867 acf4d99ff62be07e93d5de54e52889f538529165 byung hyun <loversugar@hanmail.net> 1527575009 +0900	commit: item
+acf4d99ff62be07e93d5de54e52889f538529165 7a4105dbf303552c1d54adb125ffae3d76a595b5 byung hyun <loversugar@hanmail.net> 1528639019 +0900	commit: item
+7a4105dbf303552c1d54adb125ffae3d76a595b5 d79a1d56f71c87af677108bd8c5a95f1dc153b0f byung hyun <loversugar@hanmail.net> 1528789178 +0900	merge origin/master: Fast-forward
+d79a1d56f71c87af677108bd8c5a95f1dc153b0f 71091fc7afa0b3f3856633c4abc03a46f123f5ea byung hyun <loversugar@hanmail.net> 1528791755 +0900	commit: te
+71091fc7afa0b3f3856633c4abc03a46f123f5ea 0620104bc0e8102d078290306dcb0e45fd3f08c7 byung hyun <loversugar@hanmail.net> 1528896774 +0900
+0620104bc0e8102d078290306dcb0e45fd3f08c7 35f42eb80df0b5241554d03bb9147e6f5f751ff6 byung hyun <loversugar@hanmail.net> 1528896862 +0900	commit: recovering from the git fiasco
+35f42eb80df0b5241554d03bb9147e6f5f751ff6 46c1b37816cee88b9027c8b6dea57e76deab5c21 byung hyun <loversugar@hanmail.net> 1528897751 +0900	commit (merge): test
+46c1b37816cee88b9027c8b6dea57e76deab5c21 fdaea1c59046d7add5ab00dcf589f8771ad8cce0 byung hyun <loversugar@hanmail.net> 1528897867 +0900	commit: test
+fdaea1c59046d7add5ab00dcf589f8771ad8cce0 427aa3842ed2d7f747cc8f85959d2ee7ea82e355 byung hyun <loversugar@hanmail.net> 1528898165 +0900	commit (merge): test
+427aa3842ed2d7f747cc8f85959d2ee7ea82e355 ba1723620c80f9d2ad15456f509c3295f3aaf957 byung hyun <loversugar@hanmail.net> 1528908210 +0900	commit: item
+ba1723620c80f9d2ad15456f509c3295f3aaf957 e7c4da2c38224ccf96870b45cbd8793827d8aae8 byung hyun <loversugar@hanmail.net> 1528908696 +0900	commit: color

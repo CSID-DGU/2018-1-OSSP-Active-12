@@ -4,6 +4,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 1
 guest
 2
@@ -98,12 +99,51 @@ sdfd
 sdfsdfd
 =======
 >>>>>>> e64a9827a97e70a50ea2fd94fdafe8d6f8eefe61
-2
+=======
+14
+guest
+4
+263
+guest
+4
+263
+guest
+4
+263
+guest
+4
+263
+guest
+4
+263
+guest
+4
+263
 guest
 2
-92
+128
+guest
+3
+127
+guest
+3
+113
 guest
 2
+19
+guest
+0
+0
+guest
+>>>>>>> byunghyun
+2
+0
+guest
+2
+0
+guest
+2
+<<<<<<< HEAD
 <<<<<<< HEAD
 91
 sdflsdkfj
@@ -143,3 +183,6 @@ sdflksdjf
 =======
 92
 >>>>>>> e64a9827a97e70a50ea2fd94fdafe8d6f8eefe61
+=======
+0
+>>>>>>> byunghyun

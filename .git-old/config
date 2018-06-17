@@ -1,0 +1,16 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = https://github.com/CSID-DGU/2018-1-OSSP-Active-12.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
+[branch "byunghyun"]
+	remote = origin
+	merge = refs/heads/byunghyun
+[atomGithub]
+	historySha = a77c017c9fbc55bfc0c569f22f447afd1c9bf329

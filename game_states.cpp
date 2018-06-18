@@ -172,11 +172,9 @@ string write_name(string name){
       message = TTF_RenderText_Solid(font, "Write your name and press space", white);
 			apply_surface(0, 0, background, screen);
 			SDL_Flip(screen);
-<<<<<<< HEAD
-			title_message = TTF_RenderText_Solid(font2, "Awesome Dodge", white);
-=======
+
 			title_message = TTF_RenderText_Solid(font2, "Active Dodge", white);
->>>>>>> 4fdb46c90e1102b1c2226ced2b4a39eb5d1be2f7
+
 			apply_surface((640 - title_message->w) / 2, 80, title_message, screen);
 			apply_surface((640 - message->w) / 2, 480 / 2 - message->h, message, screen);
 			SDL_Flip(screen);
@@ -600,19 +598,10 @@ if (name==""){
 	num++;
 
   sort(rankingList.begin(), rankingList.end(), compare);
-<<<<<<< HEAD
-<<<<<<< HEAD
 
   int fflag = show_rank(num);//랭킹 출력. 랭킹의 총 개수 전달
-=======
-	//랭킹 출력하는 화면 만들기
-  int fflag = show_rank(num);//랭킹의 총 개수 전달
->>>>>>> e64a9827a97e70a50ea2fd94fdafe8d6f8eefe61
-=======
 
-  int fflag = show_rank(num);//랭킹 출력. 랭킹의 총 개수 전달
 	//랭킹 출력하는 화면 만들기
->>>>>>> byunghyun
 
 	std::ofstream rank_save;
 	rank_save.open("rank.txt");
